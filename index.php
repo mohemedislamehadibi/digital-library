@@ -129,6 +129,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     <script>
        
        
+       
         function incrementDownloads(bookId) {
             fetch('increment_downloads.php?id=' + bookId);
         }

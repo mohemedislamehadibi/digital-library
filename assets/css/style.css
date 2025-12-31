@@ -89,6 +89,7 @@ a:hover { opacity: 0.8; }
 .table img { border-radius: 8px; }
 
 
+
 @media (max-width: 768px) {
     .card-img-top { height: 250px; }
     .search-section { padding: 20px; }
