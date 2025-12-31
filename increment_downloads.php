@@ -2,6 +2,7 @@
 require_once 'includes/db.php';
 
 
+
 $book_id = $_GET['id'] ?? 0;
 if ($book_id <= 0) {
     http_response_code(400);
