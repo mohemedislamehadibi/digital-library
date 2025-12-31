@@ -159,6 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="form-label">صورة غلاف جديدة (اختياري - سيحذف القديم تلقائياً)</label>
                                 <input type="file" name="cover_image" class="form-control" accept="image/*">
                             </div>
+                            
                             <div class="mb-3">
                                 <label class="form-label">ملف PDF جديد (اختياري - سيحذف القديم تلقائياً)</label>
                                 <input type="file" name="pdf_file" class="form-control" accept=".pdf">
