@@ -120,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="form-label">ملف PDF *</label>
                                 <input type="file" name="pdf_file" class="form-control" accept=".pdf" required>
                             </div>
+                            
                             <button type="submit" class="btn btn-success btn-lg">إضافة الكتاب</button>
                             <a href="dashboard.php" class="btn btn-secondary btn-lg me-2">إلغاء</a>
                         </form>
