@@ -1,6 +1,5 @@
 <?php
-session_start(); 
-
+session_start();
 
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header("Location: dashboard.php");
@@ -10,20 +9,16 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   
-    $username = "admin";
-    $password = "123";
-
-    $input_username = $_POST['username'] ?? '';
+    $input_username = trim($_POST['username'] ?? '');
     $input_password = $_POST['password'] ?? '';
 
-    
-    if ($input_username === $username && $input_password === $password) {
+    if ($input_username === 'admin' && $input_password === 'admin123') {
         $_SESSION['admin_logged_in'] = true;
+        $_SESSION['admin_username'] = 'admin';
         header("Location: dashboard.php");
         exit();
     } else {
-        $message = "<div class='alert alert-danger text-center'>اسم المستخدم أو كلمة المرور غير صحيحة!</div>";
+        $message = "<div class='alert alert-danger text-center'>بيانات غير صحيحة!</div>";
     }
 }
 ?>
@@ -57,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <button type="submit" class="btn btn-primary w-100">دخول</button>
         </form>
-       
     </div>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
     exit();
@@ -9,57 +8,50 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
 require_once '../includes/db.php';
 
+// جلب التصنيفات من قاعدة البيانات
+$categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
+
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-   
-    $title = trim($_POST['title']);
-    $author = trim($_POST['author']);
-    $category = trim($_POST['category']);
+    $title    = trim($_POST['title'] ?? '');
+    $author   = trim($_POST['author'] ?? '');
+    $category_id = (int)($_POST['category_id'] ?? 5);
+    $description = trim($_POST['description'] ?? '');
 
-   
-    if (empty($title) || empty($author) || empty($category)) {
+    if (empty($title) || empty($author)) {
         $message = "<div class='alert alert-danger'>يرجى ملء جميع الحقول المطلوبة.</div>";
     } elseif (!isset($_FILES['cover_image']) || !isset($_FILES['pdf_file'])) {
         $message = "<div class='alert alert-danger'>يرجى رفع صورة الغلاف وملف PDF.</div>";
     } else {
-      
         $uploads_dir_cover = '../assets/uploads/covers/';
-        $uploads_dir_pdf = '../assets/uploads/pdfs/';
+        $uploads_dir_pdf   = '../assets/uploads/pdfs/';
 
-        $cover_name = basename($_FILES['cover_image']['name']);
-        $pdf_name = basename($_FILES['pdf_file']['name']);
-
-      
-        $cover_ext = strtolower(pathinfo($cover_name, PATHINFO_EXTENSION));
-        $pdf_ext = strtolower(pathinfo($pdf_name, PATHINFO_EXTENSION));
+        $cover_ext   = strtolower(pathinfo($_FILES['cover_image']['name'], PATHINFO_EXTENSION));
+        $pdf_ext     = strtolower(pathinfo($_FILES['pdf_file']['name'], PATHINFO_EXTENSION));
 
         $cover_new_name = uniqid('cover_') . '.' . $cover_ext;
-        $pdf_new_name = uniqid('pdf_') . '.' . $pdf_ext;
+        $pdf_new_name   = uniqid('pdf_') . '.' . $pdf_ext;
 
         $allowed_cover = ['jpg', 'jpeg', 'png', 'gif'];
-        $allowed_pdf = ['pdf'];
 
-       
         if (!in_array($cover_ext, $allowed_cover)) {
             $message = "<div class='alert alert-danger'>صورة الغلاف يجب أن تكون jpg, jpeg, png أو gif.</div>";
-        } elseif (!in_array($pdf_ext, $allowed_pdf)) {
+        } elseif ($pdf_ext !== 'pdf') {
             $message = "<div class='alert alert-danger'>الملف يجب أن يكون PDF فقط.</div>";
-        } elseif ($_FILES['cover_image']['size'] > 5000000 || $_FILES['pdf_file']['size'] > 50000000) { // 5MB للصورة، 50MB للـPDF
-            $message = "<div class='alert alert-danger'>حجم الملف كبير جداً.</div>";
+        } elseif ($_FILES['cover_image']['size'] > 5000000) {
+            $message = "<div class='alert alert-danger'>حجم صورة الغلاف يجب أن يكون أقل من 5MB.</div>";
+        } elseif ($_FILES['pdf_file']['size'] > 50000000) {
+            $message = "<div class='alert alert-danger'>حجم ملف PDF يجب أن يكون أقل من 50MB.</div>";
         } else {
-            
             if (move_uploaded_file($_FILES['cover_image']['tmp_name'], $uploads_dir_cover . $cover_new_name) &&
                 move_uploaded_file($_FILES['pdf_file']['tmp_name'], $uploads_dir_pdf . $pdf_new_name)) {
 
-               
-                $stmt = $pdo->prepare("INSERT INTO books (title, author, category, cover_image, pdf_file, created_at, downloads, views) 
-                                       VALUES (?, ?, ?, ?, ?, NOW(), 0, 0)");
-                $stmt->execute([$title, $author, $category, $cover_new_name, $pdf_new_name]);
+                $stmt = $pdo->prepare("INSERT INTO books (title, author, description, category_id, cover_image, pdf_file, created_at, downloads, views) 
+                                       VALUES (?, ?, ?, ?, ?, ?, NOW(), 0, 0)");
+                $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name]);
 
                 $message = "<div class='alert alert-success'>تم إضافة الكتاب بنجاح!</div>";
-               
-                $_POST = [];
             } else {
                 $message = "<div class='alert alert-danger'>فشل في رفع الملفات. تأكد من صلاحيات المجلدات.</div>";
             }
@@ -79,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <style>
         body { font-family: 'Cairo', sans-serif; background: #f8f9fa; }
         .navbar { background: #667eea; }
-        .form-control, .form-select { margin-bottom: 1rem; }
     </style>
 </head>
 <body>
@@ -102,22 +93,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <form method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="form-label">عنوان الكتاب *</label>
-                                <input type="text" name="title" class="form-control" value="<?php echo $_POST['title'] ?? ''; ?>" required>
+                                <input type="text" name="title" class="form-control" 
+                                       value="<?php echo htmlspecialchars($_POST['title'] ?? ''); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">اسم المؤلف *</label>
-                                <input type="text" name="author" class="form-control" value="<?php echo $_POST['author'] ?? ''; ?>" required>
+                                <input type="text" name="author" class="form-control" 
+                                       value="<?php echo htmlspecialchars($_POST['author'] ?? ''); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">التصنيف *</label>
-                                <input type="text" name="category" class="form-control" value="<?php echo $_POST['category'] ?? ''; ?>" required>
+                                <select name="category_id" class="form-select" required>
+                                    <?php foreach ($categories as $cat): ?>
+                                        <option value="<?php echo $cat['id']; ?>" 
+                                            <?php echo (($_POST['category_id'] ?? 5) == $cat['id']) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($cat['name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">صورة الغلاف (JPG, PNG, GIF) *</label>
+                                <label class="form-label">وصف الكتاب</label>
+                                <textarea name="description" class="form-control" rows="3"><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">صورة الغلاف (JPG, PNG, GIF) * — حد أقصى 5MB</label>
                                 <input type="file" name="cover_image" class="form-control" accept="image/*" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">ملف PDF *</label>
+                                <label class="form-label">ملف PDF * — حد أقصى 50MB</label>
                                 <input type="file" name="pdf_file" class="form-control" accept=".pdf" required>
                             </div>
                             <button type="submit" class="btn btn-success btn-lg">إضافة الكتاب</button>

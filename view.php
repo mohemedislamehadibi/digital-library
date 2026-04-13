@@ -1,30 +1,34 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+session_start();
 require_once 'includes/db.php';
 
-$book_id = $_GET['id'] ?? 0;
+$book_id = (int)($_GET['id'] ?? 0);
 if ($book_id <= 0) {
     header("Location: index.php");
     exit();
 }
 
-$stmt = $pdo->prepare("SELECT title, pdf_file, views FROM books WHERE id = ?");
+$stmt = $pdo->prepare("SELECT title, pdf_file FROM books WHERE id = ?");
 $stmt->execute([$book_id]);
-$book = $stmt->fetch(PDO::FETCH_ASSOC);
+$book = $stmt->fetch();
 
 if (!$book || empty($book['pdf_file'])) {
-    die("الكتاب غير متوفر أو ملف PDF مفقود.");
+    header("Location: index.php");
+    exit();
 }
 
+// عداد المشاهدات بحماية Session
+if (!isset($_SESSION['viewed_' . $book_id])) {
+    $pdo->prepare("UPDATE books SET views = views + 1 WHERE id = ?")->execute([$book_id]);
+    $_SESSION['viewed_' . $book_id] = true;
+}
 
-$stmt = $pdo->prepare("UPDATE books SET views = views + 1 WHERE id = ?");
-$stmt->execute([$book_id]);
-
-
-$pdf_url = "assets/uploads/pdfs/" . urlencode($book['pdf_file']);
+// التحقق إذا كان رابط خارجي أم ملف محلي
+if (filter_var($book['pdf_file'], FILTER_VALIDATE_URL)) {
+    $pdf_url = $book['pdf_file']; // رابط خارجي مباشر
+} else {
+    $pdf_url = "assets/uploads/pdfs/" . urlencode($book['pdf_file']); // ملف محلي
+}
 ?>
 
 <!DOCTYPE html>
@@ -61,13 +65,13 @@ $pdf_url = "assets/uploads/pdfs/" . urlencode($book['pdf_file']);
             <a href="book.php?id=<?php echo $book_id; ?>" class="btn btn-outline-light btn-sm">رجوع إلى التفاصيل</a>
         </div>
     </div>
-<div id="pdf-container">
-    <iframe 
-        src="<?php echo $pdf_url; ?>#view=FitH&toolbar=1&navpanes=1&scrollbar=1"
-        style="width: 100%; height: 100%;"
-        allowfullscreen
-        webkitallowfullscreen>
-    </iframe>
-</div>
+
+    <div id="pdf-container">
+        <iframe 
+            src="<?php echo $pdf_url; ?>#view=FitH&toolbar=1&navpanes=1&scrollbar=1"
+            style="width: 100%; height: 100%;"
+            allowfullscreen>
+        </iframe>
+    </div>
 </body>
 </html>
