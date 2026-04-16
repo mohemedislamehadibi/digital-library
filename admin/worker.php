@@ -61,7 +61,7 @@ class ImportWorker {
         $title = $job['title'];
 
         try {
-            // 1️⃣ تحديث الحالة إلى "processing"
+            //  تحديث الحالة إلى "processing"
             $stmt = $this->pdo->prepare("
                 UPDATE import_queue 
                 SET status = 'processing' 
@@ -69,7 +69,7 @@ class ImportWorker {
             ");
             $stmt->execute([$queue_id]);
 
-            // 2️⃣ جلب البيانات من Google Books
+            //  جلب البيانات من Google Books
             $book_data = $this->getBookData($title);
 
             $author = 'غير معروف';
@@ -87,10 +87,10 @@ class ImportWorker {
                 $this->log_worker("⚠️ لم يُعثر على بيانات: $title");
             }
 
-            // 3️⃣ التصنيف الآلي
+            //  التصنيف الآلي
             $cat_id = $this->autoClassify($cat_text);
 
-            // 4️⃣ حفظ الكتاب في قاعدة البيانات
+            //  حفظ الكتاب في قاعدة البيانات
             $stmt = $this->pdo->prepare("
                 INSERT INTO books (
                     title, author, description, category_id, 
@@ -111,7 +111,7 @@ class ImportWorker {
 
             $book_id = $this->pdo->lastInsertId();
 
-            // 5️⃣ تحديث الطابور بـ status = done
+            //  تحديث الطابور بـ status = done
             $stmt = $this->pdo->prepare("
                 UPDATE import_queue 
                 SET status = 'done', book_id = ?, processed_at = NOW() 
