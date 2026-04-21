@@ -1,9 +1,15 @@
 <?php
 session_start();
 require_once 'includes/db.php';
+require_once 'includes/csrf.php';
 
 if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: profile.php");
+    exit();
+}
+
+if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+    header("Location: profile.php?error=invalid_request");
     exit();
 }
 
@@ -13,7 +19,6 @@ $new_email    = trim($_POST['email'] ?? '');
 $new_password = $_POST['new_password'] ?? '';
 $confirm_pass = $_POST['confirm_password'] ?? '';
 
-// التحقق من الحقول
 if (empty($new_username) || empty($new_email)) {
     header("Location: profile.php?error=empty");
     exit();
@@ -36,7 +41,6 @@ if (!empty($new_password)) {
 }
 
 try {
-    // التحقق من تكرار الاسم أو الإيميل
     $check = $pdo->prepare("SELECT id FROM users WHERE (username = ? OR email = ?) AND id != ?");
     $check->execute([$new_username, $new_email, $user_id]);
 
@@ -45,19 +49,16 @@ try {
         exit();
     }
 
-    // تحديث الاسم والإيميل
     $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ? WHERE id = ?");
     $stmt->execute([$new_username, $new_email, $user_id]);
 
-    // تحديث كلمة المرور إذا تم إدخالها
     if (!empty($new_password)) {
         $hashed = password_hash($new_password, PASSWORD_DEFAULT);
         $pdo->prepare("UPDATE users SET password = ? WHERE id = ?")->execute([$hashed, $user_id]);
     }
 
-    // تحديث الـ Session
     $_SESSION['username'] = $new_username;
-
+    consume_csrf_token(); // ✅ نجاح — احذف التوكن
     header("Location: profile.php?status=updated");
     exit();
 

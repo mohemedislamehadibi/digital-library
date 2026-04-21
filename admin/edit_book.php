@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../includes/csrf.php';
 
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
@@ -8,7 +9,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
 require_once '../includes/db.php';
 
-$book_id = $_GET['id'] ?? 0;
+$book_id = (int)($_GET['id'] ?? 0);
 if ($book_id <= 0) {
     header("Location: dashboard.php");
     exit();
@@ -23,85 +24,83 @@ if (!$book) {
     exit();
 }
 
-// جلب التصنيفات
 $categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
-
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title       = trim($_POST['title'] ?? '');
-    $author      = trim($_POST['author'] ?? '');
-    $category_id = (int)($_POST['category_id'] ?? 5);
-    $description = trim($_POST['description'] ?? '');
-
-    if (empty($title) || empty($author)) {
-        $message = "<div class='alert alert-danger'>يرجى ملء جميع الحقول المطلوبة.</div>";
+    if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+        $message = "<div class='alert alert-danger'>طلب غير صالح!</div>";
     } else {
-        $cover_new_name = $book['cover_image'];
-        $pdf_new_name   = $book['pdf_file'];
+        $title       = trim($_POST['title'] ?? '');
+        $author      = trim($_POST['author'] ?? '');
+        $category_id = (int)($_POST['category_id'] ?? 5);
+        $description = trim($_POST['description'] ?? '');
 
-        // رفع غلاف جديد إذا وجد
-        if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] == 0) {
-            $cover_ext     = strtolower(pathinfo($_FILES['cover_image']['name'], PATHINFO_EXTENSION));
-            $allowed_cover = ['jpg', 'jpeg', 'png', 'gif'];
+        if (empty($title) || empty($author)) {
+            $message = "<div class='alert alert-danger'>يرجى ملء جميع الحقول المطلوبة.</div>";
+        } else {
+            $cover_new_name = $book['cover_image'];
+            $pdf_new_name   = $book['pdf_file'];
 
-            if (!in_array($cover_ext, $allowed_cover)) {
-                $message = "<div class='alert alert-danger'>صورة الغلاف يجب أن تكون jpg, jpeg, png أو gif.</div>";
-            } elseif ($_FILES['cover_image']['size'] > 5000000) {
-                $message = "<div class='alert alert-danger'>حجم صورة الغلاف يجب أن يكون أقل من 5MB.</div>";
-            } else {
-                $cover_new_name = uniqid('cover_') . '.' . $cover_ext;
-                $uploads_dir_cover = '../assets/uploads/covers/';
-                if (move_uploaded_file($_FILES['cover_image']['tmp_name'], $uploads_dir_cover . $cover_new_name)) {
-                    // حذف الغلاف القديم
-                    if ($book['cover_image'] && file_exists($uploads_dir_cover . $book['cover_image'])) {
-                        unlink($uploads_dir_cover . $book['cover_image']);
-                    }
+            if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] == 0) {
+                $cover_ext     = strtolower(pathinfo($_FILES['cover_image']['name'], PATHINFO_EXTENSION));
+                $allowed_cover = ['jpg', 'jpeg', 'png', 'gif'];
+
+                if (!in_array($cover_ext, $allowed_cover)) {
+                    $message = "<div class='alert alert-danger'>صورة الغلاف يجب أن تكون jpg, jpeg, png أو gif.</div>";
+                } elseif ($_FILES['cover_image']['size'] > 5000000) {
+                    $message = "<div class='alert alert-danger'>حجم صورة الغلاف يجب أن يكون أقل من 5MB.</div>";
                 } else {
-                    $message = "<div class='alert alert-danger'>فشل رفع صورة الغلاف.</div>";
+                    $cover_new_name    = uniqid('cover_') . '.' . $cover_ext;
+                    $uploads_dir_cover = '../assets/uploads/covers/';
+                    if (move_uploaded_file($_FILES['cover_image']['tmp_name'], $uploads_dir_cover . $cover_new_name)) {
+                        if ($book['cover_image'] && file_exists($uploads_dir_cover . $book['cover_image'])) {
+                            unlink($uploads_dir_cover . $book['cover_image']);
+                        }
+                    } else {
+                        $message = "<div class='alert alert-danger'>فشل رفع صورة الغلاف.</div>";
+                    }
                 }
             }
-        }
 
-        // رفع PDF جديد إذا وجد
-        if (empty($message) && isset($_FILES['pdf_file']) && $_FILES['pdf_file']['error'] == 0) {
-            $pdf_ext = strtolower(pathinfo($_FILES['pdf_file']['name'], PATHINFO_EXTENSION));
+            if (empty($message) && isset($_FILES['pdf_file']) && $_FILES['pdf_file']['error'] == 0) {
+                $pdf_ext = strtolower(pathinfo($_FILES['pdf_file']['name'], PATHINFO_EXTENSION));
 
-            if ($pdf_ext !== 'pdf') {
-                $message = "<div class='alert alert-danger'>الملف يجب أن يكون PDF فقط.</div>";
-            } elseif ($_FILES['pdf_file']['size'] > 50000000) {
-                $message = "<div class='alert alert-danger'>حجم ملف PDF يجب أن يكون أقل من 50MB.</div>";
-            } else {
-                $pdf_new_name = uniqid('pdf_') . '.pdf';
-                $uploads_dir_pdf = '../assets/uploads/pdfs/';
-                if (move_uploaded_file($_FILES['pdf_file']['tmp_name'], $uploads_dir_pdf . $pdf_new_name)) {
-                    // حذف PDF القديم
-                    if ($book['pdf_file'] && file_exists($uploads_dir_pdf . $book['pdf_file'])) {
-                        unlink($uploads_dir_pdf . $book['pdf_file']);
-                    }
+                if ($pdf_ext !== 'pdf') {
+                    $message = "<div class='alert alert-danger'>الملف يجب أن يكون PDF فقط.</div>";
+                } elseif ($_FILES['pdf_file']['size'] > 50000000) {
+                    $message = "<div class='alert alert-danger'>حجم ملف PDF يجب أن يكون أقل من 50MB.</div>";
                 } else {
-                    $message = "<div class='alert alert-danger'>فشل رفع ملف PDF.</div>";
+                    $pdf_new_name    = uniqid('pdf_') . '.pdf';
+                    $uploads_dir_pdf = '../assets/uploads/pdfs/';
+                    if (move_uploaded_file($_FILES['pdf_file']['tmp_name'], $uploads_dir_pdf . $pdf_new_name)) {
+                        if ($book['pdf_file'] && file_exists($uploads_dir_pdf . $book['pdf_file'])) {
+                            unlink($uploads_dir_pdf . $book['pdf_file']);
+                        }
+                    } else {
+                        $message = "<div class='alert alert-danger'>فشل رفع ملف PDF.</div>";
+                    }
                 }
             }
-        }
 
-        if (empty($message)) {
-            $stmt = $pdo->prepare("UPDATE books SET title=?, author=?, description=?, category_id=?, cover_image=?, pdf_file=? WHERE id=?");
-            $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name, $book_id]);
+            if (empty($message)) {
+                $stmt = $pdo->prepare("UPDATE books SET title=?, author=?, description=?, category_id=?, cover_image=?, pdf_file=? WHERE id=?");
+                $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name, $book_id]);
 
-            $message = "<div class='alert alert-success'>تم تعديل الكتاب بنجاح!</div>";
-            // تحديث البيانات المعروضة
-            $book['title']       = $title;
-            $book['author']      = $author;
-            $book['description'] = $description;
-            $book['category_id'] = $category_id;
-            $book['cover_image'] = $cover_new_name;
-            $book['pdf_file']    = $pdf_new_name;
+                consume_csrf_token(); // ✅ نجاح — احذف التوكن
+
+                $message = "<div class='alert alert-success'>تم تعديل الكتاب بنجاح!</div>";
+                $book['title']       = $title;
+                $book['author']      = $author;
+                $book['description'] = $description;
+                $book['category_id'] = $category_id;
+                $book['cover_image'] = $cover_new_name;
+                $book['pdf_file']    = $pdf_new_name;
+            }
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -113,7 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <style>
         body { font-family: 'Cairo', sans-serif; background: #f8f9fa; }
         .navbar { background: #667eea; }
-        .current-cover img { max-width: 150px; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -133,24 +131,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="card-body">
                         <?php echo $message; ?>
-
                         <div class="mb-3 text-center">
                             <?php if ($book['cover_image']): ?>
-                                <img src="../assets/uploads/covers/<?php echo htmlspecialchars($book['cover_image']); ?>" 
-                                     class="current-cover img-fluid" alt="الغلاف الحالي">
+                                <img src="../assets/uploads/covers/<?php echo htmlspecialchars($book['cover_image']); ?>"
+                                     style="max-width:150px; border-radius:8px;" alt="الغلاف الحالي">
                                 <p class="text-muted mt-2">الغلاف الحالي</p>
                             <?php endif; ?>
                         </div>
-
                         <form method="POST" enctype="multipart/form-data">
+                            <?php echo csrf_input(); ?>
                             <div class="mb-3">
                                 <label class="form-label">عنوان الكتاب *</label>
-                                <input type="text" name="title" class="form-control" 
+                                <input type="text" name="title" class="form-control"
                                        value="<?php echo htmlspecialchars($book['title']); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">اسم المؤلف *</label>
-                                <input type="text" name="author" class="form-control" 
+                                <input type="text" name="author" class="form-control"
                                        value="<?php echo htmlspecialchars($book['author']); ?>" required>
                             </div>
                             <div class="mb-3">

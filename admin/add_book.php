@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../includes/csrf.php';
 
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: login.php");
@@ -8,58 +9,61 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
 require_once '../includes/db.php';
 
-// جلب التصنيفات من قاعدة البيانات
 $categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
-
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title    = trim($_POST['title'] ?? '');
-    $author   = trim($_POST['author'] ?? '');
-    $category_id = (int)($_POST['category_id'] ?? 5);
-    $description = trim($_POST['description'] ?? '');
-
-    if (empty($title) || empty($author)) {
-        $message = "<div class='alert alert-danger'>يرجى ملء جميع الحقول المطلوبة.</div>";
-    } elseif (!isset($_FILES['cover_image']) || !isset($_FILES['pdf_file'])) {
-        $message = "<div class='alert alert-danger'>يرجى رفع صورة الغلاف وملف PDF.</div>";
+    if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+        $message = "<div class='alert alert-danger'>طلب غير صالح!</div>";
     } else {
-        $uploads_dir_cover = '../assets/uploads/covers/';
-        $uploads_dir_pdf   = '../assets/uploads/pdfs/';
+        $title       = trim($_POST['title'] ?? '');
+        $author      = trim($_POST['author'] ?? '');
+        $category_id = (int)($_POST['category_id'] ?? 5);
+        $description = trim($_POST['description'] ?? '');
 
-        $cover_ext   = strtolower(pathinfo($_FILES['cover_image']['name'], PATHINFO_EXTENSION));
-        $pdf_ext     = strtolower(pathinfo($_FILES['pdf_file']['name'], PATHINFO_EXTENSION));
-
-        $cover_new_name = uniqid('cover_') . '.' . $cover_ext;
-        $pdf_new_name   = uniqid('pdf_') . '.' . $pdf_ext;
-
-        $allowed_cover = ['jpg', 'jpeg', 'png', 'gif'];
-
-        if (!in_array($cover_ext, $allowed_cover)) {
-            $message = "<div class='alert alert-danger'>صورة الغلاف يجب أن تكون jpg, jpeg, png أو gif.</div>";
-        } elseif ($pdf_ext !== 'pdf') {
-            $message = "<div class='alert alert-danger'>الملف يجب أن يكون PDF فقط.</div>";
-        } elseif ($_FILES['cover_image']['size'] > 5000000) {
-            $message = "<div class='alert alert-danger'>حجم صورة الغلاف يجب أن يكون أقل من 5MB.</div>";
-        } elseif ($_FILES['pdf_file']['size'] > 50000000) {
-            $message = "<div class='alert alert-danger'>حجم ملف PDF يجب أن يكون أقل من 50MB.</div>";
+        if (empty($title) || empty($author)) {
+            $message = "<div class='alert alert-danger'>يرجى ملء جميع الحقول المطلوبة.</div>";
+        } elseif (!isset($_FILES['cover_image']) || !isset($_FILES['pdf_file'])) {
+            $message = "<div class='alert alert-danger'>يرجى رفع صورة الغلاف وملف PDF.</div>";
         } else {
-            if (move_uploaded_file($_FILES['cover_image']['tmp_name'], $uploads_dir_cover . $cover_new_name) &&
-                move_uploaded_file($_FILES['pdf_file']['tmp_name'], $uploads_dir_pdf . $pdf_new_name)) {
+            $uploads_dir_cover = '../assets/uploads/covers/';
+            $uploads_dir_pdf   = '../assets/uploads/pdfs/';
 
-                $stmt = $pdo->prepare("INSERT INTO books (title, author, description, category_id, cover_image, pdf_file, created_at, downloads, views) 
-                                       VALUES (?, ?, ?, ?, ?, ?, NOW(), 0, 0)");
-                $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name]);
+            $cover_ext = strtolower(pathinfo($_FILES['cover_image']['name'], PATHINFO_EXTENSION));
+            $pdf_ext   = strtolower(pathinfo($_FILES['pdf_file']['name'], PATHINFO_EXTENSION));
 
-                $message = "<div class='alert alert-success'>تم إضافة الكتاب بنجاح!</div>";
+            $cover_new_name = uniqid('cover_') . '.' . $cover_ext;
+            $pdf_new_name   = uniqid('pdf_') . '.' . $pdf_ext;
+
+            $allowed_cover = ['jpg', 'jpeg', 'png', 'gif'];
+
+            if (!in_array($cover_ext, $allowed_cover)) {
+                $message = "<div class='alert alert-danger'>صورة الغلاف يجب أن تكون jpg, jpeg, png أو gif.</div>";
+            } elseif ($pdf_ext !== 'pdf') {
+                $message = "<div class='alert alert-danger'>الملف يجب أن يكون PDF فقط.</div>";
+            } elseif ($_FILES['cover_image']['size'] > 5000000) {
+                $message = "<div class='alert alert-danger'>حجم صورة الغلاف يجب أن يكون أقل من 5MB.</div>";
+            } elseif ($_FILES['pdf_file']['size'] > 50000000) {
+                $message = "<div class='alert alert-danger'>حجم ملف PDF يجب أن يكون أقل من 50MB.</div>";
             } else {
-                $message = "<div class='alert alert-danger'>فشل في رفع الملفات. تأكد من صلاحيات المجلدات.</div>";
+                if (move_uploaded_file($_FILES['cover_image']['tmp_name'], $uploads_dir_cover . $cover_new_name) &&
+                    move_uploaded_file($_FILES['pdf_file']['tmp_name'], $uploads_dir_pdf . $pdf_new_name)) {
+
+                    $stmt = $pdo->prepare("INSERT INTO books (title, author, description, category_id, cover_image, pdf_file, created_at, downloads, views)
+                                           VALUES (?, ?, ?, ?, ?, ?, NOW(), 0, 0)");
+                    $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name]);
+
+                    consume_csrf_token(); // ✅ نجاح — احذف التوكن
+
+                    $message = "<div class='alert alert-success'>تم إضافة الكتاب بنجاح!</div>";
+                } else {
+                    $message = "<div class='alert alert-danger'>فشل في رفع الملفات. تأكد من صلاحيات المجلدات.</div>";
+                }
             }
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -91,21 +95,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="card-body">
                         <?php echo $message; ?>
                         <form method="POST" enctype="multipart/form-data">
+                            <?php echo csrf_input(); ?>
                             <div class="mb-3">
                                 <label class="form-label">عنوان الكتاب *</label>
-                                <input type="text" name="title" class="form-control" 
+                                <input type="text" name="title" class="form-control"
                                        value="<?php echo htmlspecialchars($_POST['title'] ?? ''); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">اسم المؤلف *</label>
-                                <input type="text" name="author" class="form-control" 
+                                <input type="text" name="author" class="form-control"
                                        value="<?php echo htmlspecialchars($_POST['author'] ?? ''); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">التصنيف *</label>
                                 <select name="category_id" class="form-select" required>
                                     <?php foreach ($categories as $cat): ?>
-                                        <option value="<?php echo $cat['id']; ?>" 
+                                        <option value="<?php echo $cat['id']; ?>"
                                             <?php echo (($_POST['category_id'] ?? 5) == $cat['id']) ? 'selected' : ''; ?>>
                                             <?php echo htmlspecialchars($cat['name']); ?>
                                         </option>

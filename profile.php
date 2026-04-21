@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'includes/db.php';
+require_once 'includes/csrf.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: admin/user_login.php");
@@ -9,7 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// جلب بيانات المستخدم
 $stmt = $pdo->prepare("SELECT username, email, created_at FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
@@ -20,20 +20,18 @@ if (!$user) {
     exit();
 }
 
-// جلب المفضلة
 $stmt_favs = $pdo->prepare("
-    SELECT b.id, b.title, b.cover_image, b.author 
-    FROM favorites f 
-    JOIN books b ON f.book_id = b.id 
+    SELECT b.id, b.title, b.cover_image, b.author
+    FROM favorites f
+    JOIN books b ON f.book_id = b.id
     WHERE f.user_id = ?
     ORDER BY f.created_at DESC
 ");
 $stmt_favs->execute([$user_id]);
 $favorites = $stmt_favs->fetchAll();
 
-// جلب التعليقات مع التقييم
 $stmt_comments = $pdo->prepare("
-    SELECT c.comment, c.created_at, b.id AS book_id, b.title AS book_title, r.rating 
+    SELECT c.comment, c.created_at, b.id AS book_id, b.title AS book_title, r.rating
     FROM comments c
     JOIN books b ON c.book_id = b.id
     LEFT JOIN ratings r ON (r.book_id = b.id AND r.user_id = c.user_id)
@@ -43,28 +41,25 @@ $stmt_comments = $pdo->prepare("
 $stmt_comments->execute([$user_id]);
 $comments = $stmt_comments->fetchAll();
 
-// عدد التقييمات
 $ratings_count = $pdo->prepare("SELECT COUNT(*) FROM ratings WHERE user_id = ?");
 $ratings_count->execute([$user_id]);
 $ratings_count = $ratings_count->fetchColumn();
 
-// رسائل الإعدادات
 $status_message = "";
 if (isset($_GET['status']) && $_GET['status'] == 'updated') {
     $status_message = "<div class='alert alert-success alert-dismissible fade show'>تم تحديث بياناتك بنجاح! <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
 } elseif (isset($_GET['error'])) {
-    if ($_GET['error'] == 'exists') {
-        $status_message = "<div class='alert alert-danger alert-dismissible fade show'>اسم المستخدم أو البريد الإلكتروني مستخدم بالفعل! <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
-    } elseif ($_GET['error'] == 'empty') {
-        $status_message = "<div class='alert alert-danger alert-dismissible fade show'>يرجى ملء جميع الحقول! <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
-    } elseif ($_GET['error'] == 'short_password') {
-        $status_message = "<div class='alert alert-danger alert-dismissible fade show'>كلمة المرور يجب أن تكون 6 أحرف على الأقل! <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
-    } elseif ($_GET['error'] == 'invalid_email') {
-        $status_message = "<div class='alert alert-danger alert-dismissible fade show'>صيغة البريد الإلكتروني غير صحيحة! <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
-    }
+    $errors = [
+        'exists'           => 'اسم المستخدم أو البريد الإلكتروني مستخدم بالفعل!',
+        'empty'            => 'يرجى ملء جميع الحقول!',
+        'short_password'   => 'كلمة المرور يجب أن تكون 6 أحرف على الأقل!',
+        'invalid_email'    => 'صيغة البريد الإلكتروني غير صحيحة!',
+        'invalid_request'  => 'طلب غير صالح، حاول مجدداً!',
+    ];
+    $msg = $errors[$_GET['error']] ?? 'حدث خطأ غير معروف!';
+    $status_message = "<div class='alert alert-danger alert-dismissible fade show'>$msg <button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -80,8 +75,6 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
         .card { border-radius: 12px; transition: transform 0.2s; }
         .book-card:hover { transform: translateY(-5px); }
         .stat-card h3 { color: #0d6efd; }
-        .star-active { color: #ffc107; }
-        .star-inactive { color: #ccc; }
     </style>
 </head>
 <body>
@@ -97,7 +90,6 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
 </nav>
 
 <div class="container">
-    <!-- الإحصائيات -->
     <div class="row g-3 mb-4 text-center">
         <div class="col-6 col-md-3">
             <div class="card border-0 shadow-sm p-3 stat-card">
@@ -120,7 +112,7 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
         <div class="col-6 col-md-3">
             <div class="card border-0 shadow-sm p-3 stat-card">
                 <h3 class="fw-bold mb-0 text-info">
-                    <?php 
+                    <?php
                     $days = round((time() - strtotime($user['created_at'])) / (60 * 60 * 24));
                     echo $days <= 0 ? 1 : $days;
                     ?>
@@ -131,7 +123,6 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
     </div>
 
     <div class="row">
-        <!-- بطاقة المستخدم -->
         <div class="col-md-4 mb-4">
             <div class="card border-0 shadow-sm p-4 text-center">
                 <div class="user-avatar bg-primary text-white rounded-circle mb-3 shadow-sm">
@@ -144,7 +135,6 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
             </div>
         </div>
 
-        <!-- التبويبات -->
         <div class="col-md-8">
             <div class="card border-0 shadow-sm p-4 h-100">
                 <ul class="nav nav-pills mb-4 bg-light p-2 rounded justify-content-center" id="pills-tab" role="tablist">
@@ -160,19 +150,18 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
                 </ul>
 
                 <div class="tab-content">
-                    <!-- المفضلة -->
                     <div class="tab-pane fade show active" id="fav-content">
                         <?php if (count($favorites) > 0): ?>
                             <div class="row row-cols-2 row-cols-lg-3 g-3">
                                 <?php foreach ($favorites as $f_book): ?>
                                     <div class="col">
                                         <div class="card h-100 border-0 shadow-sm book-card overflow-hidden">
-                                            <?php 
-                                            $cover_src = filter_var($f_book['cover_image'], FILTER_VALIDATE_URL) 
-                                                ? $f_book['cover_image'] 
+                                            <?php
+                                            $cover_src = filter_var($f_book['cover_image'], FILTER_VALIDATE_URL)
+                                                ? $f_book['cover_image']
                                                 : 'assets/uploads/covers/' . htmlspecialchars($f_book['cover_image']);
                                             ?>
-                                            <img src="<?php echo $cover_src; ?>" class="card-img-top" style="height:140px; object-fit:cover;">
+                                            <img src="<?php echo $cover_src; ?>" class="card-img-top" style="height:140px; object-fit:cover;" alt="غلاف">
                                             <div class="card-body p-2 text-center">
                                                 <h6 class="card-title small fw-bold mb-2 text-truncate"><?php echo htmlspecialchars($f_book['title']); ?></h6>
                                                 <a href="book.php?id=<?php echo $f_book['id']; ?>" class="btn btn-primary btn-sm w-100">عرض</a>
@@ -186,7 +175,6 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
                         <?php endif; ?>
                     </div>
 
-                    <!-- النشاطات -->
                     <div class="tab-pane fade" id="comm-content">
                         <?php if (count($comments) > 0): ?>
                             <div class="list-group list-group-flush">
@@ -210,18 +198,18 @@ if (isset($_GET['status']) && $_GET['status'] == 'updated') {
                         <?php endif; ?>
                     </div>
 
-                    <!-- الإعدادات -->
                     <div class="tab-pane fade" id="settings-content">
                         <?php echo $status_message; ?>
                         <form action="update_profile.php" method="POST">
+                            <?php echo csrf_input(); ?>
                             <div class="mb-3">
                                 <label class="form-label small fw-bold">اسم المستخدم</label>
-                                <input type="text" name="username" class="form-control form-control-sm" 
+                                <input type="text" name="username" class="form-control form-control-sm"
                                        value="<?php echo htmlspecialchars($user['username']); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label small fw-bold">البريد الإلكتروني</label>
-                                <input type="email" name="email" class="form-control form-control-sm" 
+                                <input type="email" name="email" class="form-control form-control-sm"
                                        value="<?php echo htmlspecialchars($user['email']); ?>" required>
                             </div>
                             <div class="mb-3">
