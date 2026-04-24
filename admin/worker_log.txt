@@ -996,3 +996,509 @@
 [2026-04-21 00:22:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 4
 [2026-04-21 00:23:17] 🚀 Worker بدأ التشغيل
 [2026-04-21 00:23:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 4
+[2026-04-21 22:53:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 22:53:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 22:54:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 22:54:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 22:55:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 22:55:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 22:56:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 22:56:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 22:57:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 22:57:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 22:58:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 22:58:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 22:59:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 22:59:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:00:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:00:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:01:01] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:01:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:02:02] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:02:02] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:03:02] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:03:02] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:04:04] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:04:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:05:04] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:05:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:06:04] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:06:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:07:04] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:07:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:08:04] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:08:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:09:05] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:09:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:10:05] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:10:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:11:05] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:11:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:12:05] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:12:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:13:06] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:13:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:14:06] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:14:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:15:07] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:15:07] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:16:08] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:16:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:17:10] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:17:10] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:18:10] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:18:10] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:19:13] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:19:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:20:13] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:20:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:21:13] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:21:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:22:13] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:22:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:23:13] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:23:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:24:13] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:24:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:25:14] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:25:14] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:26:14] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:26:14] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:27:14] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:27:14] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:28:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:28:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:29:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:29:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:30:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:30:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:31:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:31:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:32:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:32:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:33:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:33:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:34:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:34:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:35:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:35:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:36:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:36:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:37:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:37:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:38:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:38:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:39:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:39:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:40:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:40:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:41:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:41:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:42:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:42:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:43:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:43:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:44:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:44:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:45:15] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:45:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:46:16] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:46:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:47:16] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:47:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:48:16] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:48:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:49:16] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:49:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:50:16] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:50:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-21 23:51:16] 🚀 Worker بدأ التشغيل
+[2026-04-21 23:51:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:02:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:02:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:03:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:03:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:04:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:04:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:05:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:05:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:06:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:06:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:07:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:07:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:08:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:08:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:09:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:09:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:10:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:10:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:11:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:11:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:12:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:12:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:13:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:13:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:14:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:14:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:15:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:15:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:16:29] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:16:29] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:17:30] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:17:30] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:18:31] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:18:31] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:19:31] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:19:31] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:20:31] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:20:31] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 18:21:31] 🚀 Worker بدأ التشغيل
+[2026-04-22 18:21:31] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:10:37] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:10:37] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:11:37] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:11:37] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:12:37] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:12:37] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:13:37] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:13:37] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:14:37] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:14:37] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:15:39] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:15:39] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:16:39] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:16:39] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:17:39] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:17:39] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:18:39] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:18:39] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:19:39] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:19:39] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:20:39] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:20:39] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:21:40] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:21:40] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:22:40] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:22:40] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:23:40] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:23:40] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:24:42] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:24:42] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:25:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:25:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:26:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:26:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:27:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:27:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:28:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:28:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:29:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:29:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:30:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:30:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:31:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:31:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:32:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:32:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:33:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:33:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:34:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:34:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:35:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:35:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:36:43] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:36:43] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:37:44] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:37:44] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:38:45] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:38:45] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:39:45] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:39:45] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:40:45] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:40:45] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-22 23:41:45] 🚀 Worker بدأ التشغيل
+[2026-04-22 23:41:45] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:22:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:22:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:23:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:23:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:24:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:24:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:25:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:25:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:26:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:26:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:27:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:27:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:28:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:28:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:29:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:29:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:30:57] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:30:57] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:31:59] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:31:59] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:33:00] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:33:00] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:34:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:34:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:35:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:35:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:36:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:36:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:37:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:37:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:38:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:38:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:39:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:39:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:40:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:40:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:41:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:41:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:42:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:42:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:43:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:43:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:44:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:44:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:45:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:45:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:46:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:46:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:47:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:47:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:48:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:48:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:49:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:49:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:50:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:50:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:51:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:51:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:52:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:52:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:53:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:53:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:54:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:54:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:55:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:55:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:56:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:56:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:57:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:57:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:58:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:58:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 20:59:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 20:59:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:00:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:00:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:01:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:01:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:02:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:02:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:03:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:03:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:04:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:04:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:05:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:05:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:06:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:06:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:07:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:07:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:08:01] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:08:01] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:09:02] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:09:02] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:10:03] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:10:03] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:11:03] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:11:03] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:12:03] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:12:03] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:13:03] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:13:03] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:14:03] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:14:03] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:15:03] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:15:03] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:16:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:16:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:17:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:17:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:18:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:18:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:19:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:19:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:20:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:20:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:21:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:21:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:22:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:22:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:23:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:23:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:24:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:24:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:25:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:25:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:26:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:26:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:27:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:27:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:28:04] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:28:04] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:29:05] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:29:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:30:05] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:30:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:31:05] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:31:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:32:05] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:32:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:33:05] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:33:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:34:05] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:34:05] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:35:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:35:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:36:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:36:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:37:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:37:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:38:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:38:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:39:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:39:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:40:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:40:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:41:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:41:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:42:06] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:42:06] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:43:07] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:43:07] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:44:07] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:44:07] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:45:08] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:45:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:46:08] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:46:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:47:08] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:47:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:48:08] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:48:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:49:08] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:49:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:50:08] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:50:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:51:08] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:51:08] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:52:09] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:52:09] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:53:10] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:53:10] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:54:10] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:54:10] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:55:11] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:55:11] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:56:11] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:56:11] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:57:11] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:57:11] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:58:11] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:58:11] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 21:59:12] 🚀 Worker بدأ التشغيل
+[2026-04-23 21:59:12] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:00:12] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:00:12] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:01:12] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:01:12] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:02:13] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:02:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:03:13] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:03:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:04:13] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:04:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:05:13] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:05:13] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:06:15] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:06:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:07:15] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:07:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:08:15] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:08:15] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:09:16] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:09:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:10:16] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:10:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:11:16] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:11:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:12:16] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:12:16] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:13:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:13:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:14:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:14:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:15:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:15:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:16:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:16:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:17:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:17:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:18:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:18:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:19:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:19:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:20:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:20:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:21:17] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:21:17] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:22:18] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:22:18] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:23:18] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:23:18] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:24:19] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:24:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:25:20] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:25:20] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:26:21] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:26:21] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:27:21] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:27:21] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:28:21] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:28:21] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:29:21] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:29:21] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:30:21] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:30:21] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-23 22:40:39] 🚀 Worker بدأ التشغيل
+[2026-04-23 22:40:39] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:24:18] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:24:18] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:25:18] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:25:18] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:26:18] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:26:18] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:27:19] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:27:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:28:19] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:28:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:29:19] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:29:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:30:19] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:30:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:31:19] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:31:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:32:19] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:32:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:33:19] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:33:19] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:34:20] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:34:20] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:35:20] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:35:20] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1
+[2026-04-24 23:36:20] 🚀 Worker بدأ التشغيل
+[2026-04-24 23:36:20] ❌ خطأ: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''5'' at line 1

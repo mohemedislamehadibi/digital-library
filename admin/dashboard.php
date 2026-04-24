@@ -20,6 +20,8 @@ if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
         $pdf   = '../assets/uploads/pdfs/'   . $book['pdf_file'];
         if ($book['cover_image'] && file_exists($cover)) unlink($cover);
         if ($book['pdf_file']   && file_exists($pdf))   unlink($pdf);
+        // ★ أفرغ book_id في import_queue أولاً قبل حذف الكتاب
+        $pdo->prepare("UPDATE import_queue SET book_id = NULL WHERE book_id = ?")->execute([$id]);
         $pdo->prepare("DELETE FROM books WHERE id = ?")->execute([$id]);
     }
     header("Location: dashboard.php?deleted=1");
@@ -39,6 +41,8 @@ if (isset($_POST['delete_all'])) {
         if ($b['cover_image'] && file_exists($cover)) unlink($cover);
         if ($b['pdf_file']   && file_exists($pdf))   unlink($pdf);
     }
+    // ★ أفرغ book_id في import_queue أولاً قبل حذف الكتب
+    $pdo->exec("UPDATE import_queue SET book_id = NULL WHERE book_id IS NOT NULL");
     $pdo->exec("DELETE FROM books");
     header("Location: dashboard.php?deleted_all=1");
     exit();
