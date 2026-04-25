@@ -3,9 +3,7 @@ predict.py
 ===========
 يُستدعى من PHP عبر shell_exec لتصنيف كتاب واحد.
 
-الاستخدام:
-    python3 predict.py "think and grow rich"
-    python3 predict.py "think and grow rich" "description text here"
+
 
 المخرج (JSON):
     {"category_id": 11, "category_name": "تطوير الذات", "confidence": 0.87}

@@ -30,15 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['user_logged_in'] = true;
                 $_SESSION['user_id']        = $user['id'];
                 $_SESSION['username']       = $user['username'];
-                if ($user && password_verify($password, $user['password'])) {
-    session_regenerate_id(true);
-    $_SESSION['user_logged_in'] = true;
-    $_SESSION['user_id']        = $user['id'];
-    $_SESSION['username']       = $user['username'];
-    consume_csrf_token(); // ✅ أضف هذا
-    header("Location: ../index.php");
-    exit();
-}
+                consume_csrf_token(); // ✅ حذف التوكن عند النجاح فقط
                 header("Location: ../index.php");
                 exit();
             } else {
@@ -71,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php echo csrf_input(); ?>
                 <div class="mb-3">
                     <label class="form-label">اسم المستخدم</label>
-                    <input type="text" name="username" class="form-control" required>
+                    <input type="text" name="username" class="form-control" required autofocus>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">كلمة المرور</label>

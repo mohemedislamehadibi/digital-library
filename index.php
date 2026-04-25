@@ -2,20 +2,19 @@
 session_start();
 require_once 'includes/db.php';
 
-$search = $_GET['search'] ?? '';
+$search          = $_GET['search'] ?? '';
 $category_filter = $_GET['category'] ?? '';
 
-// جلب الكتب مع اسم التصنيف
-$query = "SELECT b.*, c.name as category_name, 
-          (SELECT AVG(rating) FROM ratings WHERE book_id = b.id) as avg_rating
-          FROM books b 
-          LEFT JOIN categories c ON b.category_id = c.id
-          WHERE 1=1";
+// ✅ استخدام عمود avg_rating المخزون بدلاً من subquery في كل صف
+$query  = "SELECT b.*, c.name as category_name
+           FROM books b
+           LEFT JOIN categories c ON b.category_id = c.id
+           WHERE 1=1";
 $params = [];
 
 if ($search !== '') {
     $query .= " AND (b.title LIKE ? OR b.author LIKE ?)";
-    $like = "%$search%";
+    $like   = "%$search%";
     $params[] = $like;
     $params[] = $like;
 }
@@ -26,9 +25,9 @@ if ($category_filter !== '') {
 }
 
 $query .= " ORDER BY b.created_at DESC";
-$stmt = $pdo->prepare($query);
+$stmt   = $pdo->prepare($query);
 $stmt->execute($params);
-$books = $stmt->fetchAll();
+$books  = $stmt->fetchAll();
 
 // جلب التصنيفات
 $categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
@@ -78,15 +77,15 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
     <div class="search-section shadow-lg mb-5">
         <form class="row g-3">
             <div class="col-md-6">
-                <input type="text" name="search" class="form-control form-control-lg" 
-                       placeholder="ابحث بالعنوان أو المؤلف..." 
+                <input type="text" name="search" class="form-control form-control-lg"
+                       placeholder="ابحث بالعنوان أو المؤلف..."
                        value="<?php echo htmlspecialchars($search); ?>">
             </div>
             <div class="col-md-4">
                 <select name="category" class="form-select form-select-lg">
                     <option value="">جميع التصنيفات</option>
                     <?php foreach ($categories as $cat): ?>
-                        <option value="<?php echo $cat['id']; ?>" 
+                        <option value="<?php echo $cat['id']; ?>"
                             <?php echo $category_filter == $cat['id'] ? 'selected' : ''; ?>>
                             <?php echo htmlspecialchars($cat['name']); ?>
                         </option>
@@ -109,8 +108,8 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
                 <div class="col">
                     <div class="card h-100 shadow">
                         <?php if ($book['cover_image']): ?>
-                            <img src="assets/uploads/covers/<?php echo htmlspecialchars($book['cover_image']); ?>" 
-                                 class="card-img-top" 
+                            <img src="assets/uploads/covers/<?php echo htmlspecialchars($book['cover_image']); ?>"
+                                 class="card-img-top"
                                  alt="<?php echo htmlspecialchars($book['title']); ?>">
                         <?php else: ?>
                             <div class="bg-secondary d-flex align-items-center justify-content-center text-white" style="height:300px;">
@@ -121,9 +120,9 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
                             <h5 class="card-title"><?php echo htmlspecialchars($book['title']); ?></h5>
                             <p class="card-text text-muted small">المؤلف: <?php echo htmlspecialchars($book['author']); ?></p>
                             <p class="card-text text-muted small">التصنيف: <?php echo htmlspecialchars($book['category_name']); ?></p>
-                            <!-- النجوم -->
+                            <!-- النجوم — يستخدم avg_rating المخزون مباشرة ✅ -->
                             <div class="mb-2">
-                                <?php 
+                                <?php
                                 $avg = round($book['avg_rating'] ?? 0);
                                 for ($i = 1; $i <= 5; $i++):
                                 ?>

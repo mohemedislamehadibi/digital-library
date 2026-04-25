@@ -29,13 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif (strlen($password) < 6) {
             $message = "<div class='alert alert-danger'>كلمة المرور يجب أن تكون 6 أحرف على الأقل.</div>";
         } else {
-            $hashed = password_hash($password, PASSWORD_DEFAULT);
-            $stmt   = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
             try {
-                $stmt->execute([$username, $email, $hashed]);
-                $stmt->execute([$username, $email, $hashed]);
-consume_csrf_token(); // ✅ أضف هذا
-$message = "<div class='alert alert-success'>تم التسجيل بنجاح!...";
+                $hashed = password_hash($password, PASSWORD_DEFAULT);
+                $stmt   = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+                $stmt->execute([$username, $email, $hashed]); // ✅ تنفيذ مرة واحدة فقط
+                consume_csrf_token(); // ✅ حذف التوكن عند النجاح
                 $message = "<div class='alert alert-success'>تم التسجيل بنجاح! <a href='user_login.php'>تسجيل الدخول</a></div>";
             } catch (PDOException $e) {
                 $message = "<div class='alert alert-danger'>اسم المستخدم أو البريد الإلكتروني مستخدم مسبقاً.</div>";

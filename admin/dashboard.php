@@ -9,9 +9,13 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 require_once '../includes/db.php';
 require_once '../includes/csrf.php';
 
-// ── حذف كتاب واحد ──
-if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
-    $id   = (int)$_GET['delete_id'];
+// ── حذف كتاب واحد — عبر POST مع CSRF ✅
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+        header("Location: dashboard.php?error=csrf");
+        exit();
+    }
+    $id   = (int)$_POST['delete_id'];
     $stmt = $pdo->prepare("SELECT cover_image, pdf_file FROM books WHERE id = ?");
     $stmt->execute([$id]);
     $book = $stmt->fetch();
@@ -20,8 +24,6 @@ if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
         $pdf   = '../assets/uploads/pdfs/'   . $book['pdf_file'];
         if ($book['cover_image'] && file_exists($cover)) unlink($cover);
         if ($book['pdf_file']   && file_exists($pdf))   unlink($pdf);
-        // ★ أفرغ book_id في import_queue أولاً قبل حذف الكتاب
-        $pdo->prepare("UPDATE import_queue SET book_id = NULL WHERE book_id = ?")->execute([$id]);
         $pdo->prepare("DELETE FROM books WHERE id = ?")->execute([$id]);
     }
     header("Location: dashboard.php?deleted=1");
@@ -41,8 +43,6 @@ if (isset($_POST['delete_all'])) {
         if ($b['cover_image'] && file_exists($cover)) unlink($cover);
         if ($b['pdf_file']   && file_exists($pdf))   unlink($pdf);
     }
-    // ★ أفرغ book_id في import_queue أولاً قبل حذف الكتب
-    $pdo->exec("UPDATE import_queue SET book_id = NULL WHERE book_id IS NOT NULL");
     $pdo->exec("DELETE FROM books");
     header("Location: dashboard.php?deleted_all=1");
     exit();
@@ -111,10 +111,10 @@ $comments = $pdo->query("
     <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="dashboard.php">مكتبة الثقافة — الإدارة</a>
         <div class="d-flex gap-2 flex-wrap">
-            <a href="add_book.php"            class="btn btn-light btn-sm">إضافة كتاب</a>
-            <a href="bulk_upload.php"         class="btn btn-light btn-sm">الرفع الجماعي</a>
+            <a href="add_book.php"             class="btn btn-light btn-sm">إضافة كتاب</a>
+            <a href="bulk_upload.php"          class="btn btn-light btn-sm">الرفع الجماعي</a>
             <a href="classification_stats.php" class="btn btn-warning btn-sm">📊 إحصائيات التصنيف</a>
-            <a href="logout.php"              class="btn btn-danger btn-sm">خروج</a>
+            <a href="logout.php"               class="btn btn-danger btn-sm">خروج</a>
         </div>
     </div>
 </nav>
@@ -228,8 +228,7 @@ $comments = $pdo->query("
                     <td>
                         <?php if ($book['cover_image']): ?>
                             <img src="../assets/uploads/covers/<?php echo htmlspecialchars($book['cover_image']); ?>"
-                                 width="45" height="60" class="rounded" style="object-fit:cover;"
-                                 alt="غلاف">
+                                 width="45" height="60" class="rounded" style="object-fit:cover;" alt="غلاف">
                         <?php else: ?>
                             <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded"
                                  style="width:45px;height:60px;font-size:10px;">لا غلاف</div>
@@ -248,11 +247,13 @@ $comments = $pdo->query("
                     <td>
                         <a href="edit_book.php?id=<?php echo $book['id']; ?>"
                            class="btn btn-warning btn-sm">تعديل</a>
-                        <a href="dashboard.php?delete_id=<?php echo $book['id']; ?>"
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('هل أنت متأكد من حذف «<?php echo addslashes($book['title']); ?>»؟');">
-                           حذف
-                        </a>
+
+                        <!-- ✅ زر الحذف عبر POST + CSRF بدلاً من GET -->
+                        <button type="button"
+                                class="btn btn-danger btn-sm"
+                                onclick="confirmDelete(<?php echo $book['id']; ?>, '<?php echo addslashes(htmlspecialchars($book['title'])); ?>')">
+                            حذف
+                        </button>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -304,7 +305,13 @@ $comments = $pdo->query("
         <div class="alert alert-info text-center">لا توجد تعليقات حتى الآن.</div>
     <?php endif; ?>
 
-</div><!-- /container -->
+</div>
+
+<!-- ✅ Form مخفي لحذف كتاب واحد عبر POST -->
+<form id="deleteForm" method="POST" style="display:none;">
+    <?php echo csrf_input(); ?>
+    <input type="hidden" name="delete_id" id="deleteBookId">
+</form>
 
 <!-- Modal تأكيد حذف الكل -->
 <div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllLabel" aria-hidden="true">
@@ -333,5 +340,14 @@ $comments = $pdo->query("
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ✅ حذف كتاب واحد عبر POST مع تأكيد
+function confirmDelete(bookId, bookTitle) {
+    if (confirm('هل أنت متأكد من حذف «' + bookTitle + '»؟')) {
+        document.getElementById('deleteBookId').value = bookId;
+        document.getElementById('deleteForm').submit();
+    }
+}
+</script>
 </body>
 </html>

@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                            VALUES (?, ?, ?, ?, ?, ?, NOW(), 0, 0)");
                     $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name]);
 
-                    consume_csrf_token(); // ✅ نجاح — احذف التوكن
+                    consume_csrf_token(); //  نجاح — احذف التوكن
 
                     $message = "<div class='alert alert-success'>تم إضافة الكتاب بنجاح!</div>";
                 } else {
