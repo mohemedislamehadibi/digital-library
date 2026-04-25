@@ -327,13 +327,7 @@ body { font-family:'Cairo',sans-serif; background:#f0f2f8; }
         </div>
         <div class="bar-pct" style="color:#667eea"><?= $ml_acc ?>%</div>
     </div>
-    <div class="bar-row">
-        <div class="bar-lbl">📊 Naive Bayes (مرجع من التدريب)</div>
-        <div class="bar-track">
-            <div class="bar-fill" style="width:0%;background:linear-gradient(90deg,#17a2b8,#0056b3)"
-                 data-val="88.2"></div>
-        </div>
-        <div class="bar-pct" style="color:#17a2b8">88.2%</div>
+   
     </div>
 </div>
 <?php endif; ?>
