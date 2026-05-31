@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                            VALUES (?, ?, ?, ?, ?, ?, NOW(), 0, 0)");
                     $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name]);
 
-                    consume_csrf_token(); //  نجاح — احذف التوكن
+                    consume_csrf_token(); 
 
                     $message = "<div class='alert alert-success'>تم إضافة الكتاب بنجاح!</div>";
                 } else {
@@ -97,34 +97,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <form method="POST" enctype="multipart/form-data">
                             <?php echo csrf_input(); ?>
                             <div class="mb-3">
-                                <label class="form-label">عنوان الكتاب *</label>
+          <label class="form-label">عنوان الكتاب *</label>
                                 <input type="text" name="title" class="form-control"
                                        value="<?php echo htmlspecialchars($_POST['title'] ?? ''); ?>" required>
-                            </div>
-                            <div class="mb-3">
+             </div>
+            <div class="mb-3">
                                 <label class="form-label">اسم المؤلف *</label>
-                                <input type="text" name="author" class="form-control"
+              <input type="text" name="author" class="form-control"
                                        value="<?php echo htmlspecialchars($_POST['author'] ?? ''); ?>" required>
-                            </div>
+           </div>
                             <div class="mb-3">
                                 <label class="form-label">التصنيف *</label>
-                                <select name="category_id" class="form-select" required>
+                 <select name="category_id" class="form-select" required>
                                     <?php foreach ($categories as $cat): ?>
-                                        <option value="<?php echo $cat['id']; ?>"
-                                            <?php echo (($_POST['category_id'] ?? 5) == $cat['id']) ? 'selected' : ''; ?>>
-                                            <?php echo htmlspecialchars($cat['name']); ?>
+                                 <option value="<?php echo $cat['id']; ?>"
+                            <?php echo (($_POST['category_id'] ?? 5) == $cat['id']) ? 'selected' : ''; ?>>
+                     <?php echo htmlspecialchars($cat['name']); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">وصف الكتاب</label>
-                                <textarea name="description" class="form-control" rows="3"><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">صورة الغلاف (JPG, PNG, GIF) * — حد أقصى 5MB</label>
-                                <input type="file" name="cover_image" class="form-control" accept="image/*" required>
-                            </div>
+                   <label class="form-label">وصف الكتاب</label>
+ <textarea name="description" class="form-control" rows="3"><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
+            </div>
+       <div class="mb-3">
+                      <label class="form-label">صورة الغلاف (JPG, PNG, GIF) * — حد أقصى 5MB</label>
+                 <input type="file" name="cover_image" class="form-control" accept="image/*" required>
+             </div>
                             <div class="mb-3">
                                 <label class="form-label">ملف PDF * — حد أقصى 50MB</label>
                                 <input type="file" name="pdf_file" class="form-control" accept=".pdf" required>

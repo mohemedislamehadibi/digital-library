@@ -16,7 +16,7 @@ $stmt->execute([$user_id, $book_id]);
 $fav = $stmt->fetch();
 
 if ($fav) {
-    // إذا وجده، يقوم بحذفه (إزالة من المفضلة)
+    // إذا وجده، يقوم بحذفه
     $stmt = $pdo->prepare("DELETE FROM favorites WHERE id = ?");
     $stmt->execute([$fav['id']]);
 } else {

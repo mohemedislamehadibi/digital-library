@@ -22,7 +22,7 @@ $pdo->prepare("UPDATE books SET downloads = downloads + 1 WHERE id = ?")->execut
 
 // التحقق إذا كان رابط خارجي
 if (filter_var($book['pdf_file'], FILTER_VALIDATE_URL)) {
-    // رابط خارجي — وجّه مباشرة
+   
     header("Location: " . $book['pdf_file']);
     exit();
 }

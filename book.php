@@ -22,18 +22,15 @@ if (!$book) {
     exit();
 }
 
-// عداد المشاهدات بحماية Session
 if (!isset($_SESSION['viewed_' . $book_id])) {
     $pdo->prepare("UPDATE books SET views = views + 1 WHERE id = ?")->execute([$book_id]);
     $_SESSION['viewed_' . $book_id] = true;
 }
 
-// جلب التعليقات
 $stmt = $pdo->prepare("SELECT * FROM comments WHERE book_id = ? ORDER BY created_at DESC");
 $stmt->execute([$book_id]);
 $comments = $stmt->fetchAll();
 
-// جلب تقييم المستخدم الحالي
 $user_rating = 0;
 if (isset($_SESSION['user_id'])) {
     $st = $pdo->prepare("SELECT rating FROM ratings WHERE user_id = ? AND book_id = ?");
@@ -42,7 +39,6 @@ if (isset($_SESSION['user_id'])) {
     if ($res) $user_rating = $res['rating'];
 }
 
-// حالة المفضلة
 $is_fav = false;
 if (isset($_SESSION['user_id'])) {
     $stmt_fav = $pdo->prepare("SELECT id FROM favorites WHERE user_id = ? AND book_id = ?");
@@ -50,7 +46,6 @@ if (isset($_SESSION['user_id'])) {
     if ($stmt_fav->fetch()) $is_fav = true;
 }
 
-// إضافة تعليق
 $message = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!isset($_SESSION['user_id'])) {

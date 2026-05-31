@@ -1,14 +1,4 @@
-"""
-generate_scatter.py
-====================
-يقرأ الكتب من قاعدة البيانات الحقيقية
-ويحوّلها لبيانات PCA جاهزة للرسم.
 
-الاستخدام من PHP:
-    python3 generate_scatter.py --host 127.0.0.1 --port 3307 --db library_db --user root --pass ""
-
-المخرج: JSON array جاهز لـ Chart.js
-"""
 
 import sys
 import json
@@ -17,13 +7,11 @@ import joblib
 import os
 import numpy as np
 
-# ★ إصلاح encoding على Windows — يمنع خطأ UnicodeEncodeError
 if sys.platform == 'win32':
     import io
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
-# ── مسار النموذج ──────────────────────────────────────────
 BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 VEC_PATH   = os.path.join(BASE_DIR, "vectorizer.pkl")
@@ -44,7 +32,6 @@ def main():
     parser.add_argument('--pw',   default='')
     args = parser.parse_args()
 
-    # ── الاتصال بـ MySQL ──────────────────────────────────
     try:
         import pymysql
     except ImportError:
@@ -77,7 +64,6 @@ def main():
         sys.stdout.write(json.dumps({"error": "no books", "points": [], "stats": {}}) + "\n"); sys.stdout.flush()
         return
 
-    # ── تحميل النموذج ────────────────────────────────────
     if not os.path.exists(VEC_PATH) or not os.path.exists(MODEL_PATH):
         sys.stdout.write(json.dumps({"error": "model not found", "points": [], "stats": {}}) + "\n"); sys.stdout.flush()
         return
@@ -85,7 +71,6 @@ def main():
     vectorizer = joblib.load(VEC_PATH)
     model      = joblib.load(MODEL_PATH)
 
-    # ── تحضير النصوص ─────────────────────────────────────
     texts    = []
     book_ids = []
     for book in books:
@@ -94,10 +79,8 @@ def main():
         texts.append(text)
         book_ids.append(bid)
 
-    # ── TF-IDF ───────────────────────────────────────────
     X = vectorizer.transform(texts)
 
-    # ── PCA إلى بُعدين ────────────────────────────────────
     from sklearn.decomposition import PCA
     n_components = min(2, X.shape[0], X.shape[1])
     pca = PCA(n_components=n_components, random_state=42)
@@ -105,16 +88,13 @@ def main():
     X_dense = X.toarray()
     coords  = pca.fit_transform(X_dense)
 
-    # إذا كتاب واحد فقط → إرجاع (0,0)
     if coords.shape[1] < 2:
         coords = np.hstack([coords, np.zeros((coords.shape[0], 1))])
 
-    # ── حساب ML predictions ──────────────────────────────
     ml_preds = model.predict(X)
     ml_proba = model.predict_proba(X)
     ml_conf  = [round(float(max(p)) * 100, 1) for p in ml_proba]
 
-    # ── keyword scoring بسيط ──────────────────────────────
     kw_scores = []
     kw_preds  = []
     kws = {
@@ -139,7 +119,6 @@ def main():
         kw_preds.append(best if sc[best] > 0 else 5)
         kw_scores.append(sc[best])
 
-    # ── بناء النتيجة ──────────────────────────────────────
     points = []
     kw_correct = 0
     ml_correct = 0
@@ -180,7 +159,6 @@ def main():
             "ml_acc":     round(ml_correct / total * 100, 1) if total else 0,
         }
     }
-    # ★ ensure_ascii=True يتجنب كل مشاكل encoding على Windows
     output_json = json.dumps(result, ensure_ascii=True)
     sys.stdout.write(output_json + '\n')
     sys.stdout.flush()

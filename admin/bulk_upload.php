@@ -1,5 +1,5 @@
 <?php
-// ★ ضروري لـ 100+ كتاب — يمنع timeout أثناء الرفع الجماعي
+
 set_time_limit(0);
 ini_set('memory_limit', '256M');
 
@@ -13,9 +13,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 require_once '../includes/db.php';
 require_once '../includes/BookProcessor.php';
 
-// ============================================================
-// دوال مساعدة مستقلة للـ CSV mode
-// ============================================================
+
 function searchGoogleBooks($title) {
     $query    = urlencode($title);
     $url      = "https://www.googleapis.com/books/v1/volumes?q={$query}&maxResults=1";
@@ -82,9 +80,7 @@ function getBookData($title) {
     return $r ?? $ol; // أي نتيجة حتى بدون وصف
 }
 
-// ============================================================
-// ★ autoClassify — يستخدم العنوان دائماً حتى لو الوصف فارغ
-// ============================================================
+
 function autoClassify($text) {
     $text = mb_strtolower($text, 'UTF-8');
     $scores = [
@@ -163,9 +159,9 @@ function saveCoverFromUrl($url) {
     return 'default_book.jpg';
 }
 
-// ============================================================
+
 // CSV Mode
-// ============================================================
+
 $csv_message = "";
 $csv_log     = [];
 
@@ -204,15 +200,15 @@ if (isset($_POST["import_csv"])) {
                     $author      = htmlspecialchars($book_data['author'], ENT_QUOTES, 'UTF-8');
                     $description = htmlspecialchars($book_data['description'], ENT_QUOTES, 'UTF-8');
                     $cover       = saveCoverFromUrl($book_data['cover']);
-                    // ★ لوج يظهر مصدر البيانات وهل يوجد وصف
+  
                     $src     = $book_data['source'] ?? 'api';
                     $has_desc = !empty($book_data['description']) ? '📝 وصف موجود' : '⚠️ بدون وصف';
                     $csv_log[] = "✅ <b>" . htmlspecialchars($title) . "</b> — $src | $has_desc | المؤلف: $author";
                 } else {
-                    $csv_log[] = "⚠️ <b>" . htmlspecialchars($title) . "</b> — لم يُعثر على بيانات API (يُصنَّف بالعنوان)";
+          $csv_log[] = "⚠️ <b>" . htmlspecialchars($title) . "</b> — لم يُعثر على بيانات API (يُصنَّف بالعنوان)";
                 }
 
-                // ★ نص التصنيف = وصف API + تصنيف API + العنوان دائماً
+  
                 $cat_text = ($book_data['category'] ?? '')
                           . ' ' . $description
                           . ' ' . $title;
@@ -240,9 +236,9 @@ if (isset($_POST["import_csv"])) {
     }
 }
 
-// ============================================================
+
 // PDF Batch Mode
-// ============================================================
+
 $pdf_message = "";
 $pdf_log     = [];
 
@@ -307,19 +303,18 @@ if (isset($_POST["import_pdfs"])) {
                 $pdf_log[] = "⚠️ <b>" . htmlspecialchars($title) . "</b> — لا بيانات API";
             }
 
-            // ★ بناء نص التصنيف: PDF text > API desc > العنوان
-            $classify_text = $processor->buildClassificationText(
+              $classify_text = $processor->buildClassificationText(
                 $book_data ?? [],
                 $pdf_full_path
             );
 
-            // إذا نجح استخراج PDF
+  
             $pdf_text = $processor->extractTextFromPdf($pdf_full_path);
             if (!empty($pdf_text)) {
                 $pdf_log[] = "📄 <b>" . htmlspecialchars($title) . "</b> — تصنيف من نص PDF";
             }
 
-            // ★ العنوان يُضاف دائماً لنص التصنيف
+  
             $classify_text = trim($classify_text . ' ' . $title);
             $cat_id        = $processor->autoClassify($classify_text);
 
@@ -343,9 +338,9 @@ if (isset($_POST["import_pdfs"])) {
     }
 }
 
-// ============================================================
+
 // Textarea Queue Mode
-// ============================================================
+
 $textarea_message = "";
 
 if (isset($_POST["import_textarea"])) {
@@ -378,10 +373,10 @@ if (isset($_POST["import_textarea"])) {
                 $worker_path = __DIR__ . '/worker.php';
                 $php_exe     = PHP_BINARY ?: 'php';
                 @shell_exec("\"$php_exe\" \"$worker_path\" > nul 2>&1 &");
-                $textarea_message = "<div class='alert alert-info'>✅ تمت إضافة <b>$added</b> كتاب إلى الطابور!</div>";
-            } else {
-                $textarea_message = "<div class='alert alert-warning'>⚠️ لم يُضَف أي كتاب" . ($errors > 0 ? " ($errors تخطي)" : "") . "</div>";
-            }
+              $textarea_message = "<div class='alert alert-info'>✅ تمت إضافة <b>$added</b> كتاب إلى الطابور!</div>";
+       } else {
+          $textarea_message = "<div class='alert alert-warning'>⚠️ لم يُضَف أي كتاب" . ($errors > 0 ? " ($errors تخطي)" : "") . "</div>";
+ }
         } catch (Exception $e) {
             $textarea_message = "<div class='alert alert-danger'>❌ خطأ: " . htmlspecialchars($e->getMessage()) . "</div>";
         }

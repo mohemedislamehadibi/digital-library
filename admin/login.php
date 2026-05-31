@@ -1,12 +1,12 @@
 <?php
-// 1. بدء الجلسة في أول السطر
+
 session_start();
 
-// 2. استدعاء الملفات الأساسية
+
 require_once '../includes/csrf.php';
 require_once '../includes/db.php';
 
-// 3. إذا كان الأدمن مسجلاً للدخول مسبقاً، حوله للوحة التحكم
+
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header("Location: dashboard.php");
     exit();
@@ -14,10 +14,10 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
 
 $message = "";
 
-// 4. معالجة طلب تسجيل الدخول
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    // التحقق من توكن CSRF (المفتاح الأمني)
+
     if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
         $message = "<div class='alert alert-danger text-center'>فشل التحقق الأمني (CSRF). حاول مجدداً.</div>";
     } else {
@@ -27,21 +27,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (empty($input_username) || empty($input_password)) {
             $message = "<div class='alert alert-danger text-center'>يرجى إدخال اسم المستخدم وكلمة المرور.</div>";
         } else {
-            // جلب بيانات المسؤول من القاعدة
+ 
             $stmt = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
             $stmt->execute([$input_username]);
             $admin = $stmt->fetch();
 
-            // التحقق من صحة البيانات
+ 
             if ($admin && password_verify($input_password, $admin['password'])) {
                 
-                // إجراءات أمنية للجلسة
+ 
                 session_regenerate_id(true);
                 
                 $_SESSION['admin_logged_in'] = true;
                 $_SESSION['admin_username']  = $admin['username'];
                 
-                // استهلاك التوكن لمرة واحدة (اختياري حسب مكتبة csrf لديك)
+ 
                 if (function_exists('consume_csrf_token')) {
                     consume_csrf_token();
                 }

@@ -6,13 +6,12 @@ $comment_id = (int)($_GET['comment_id'] ?? 0);
 $book_id    = (int)($_GET['book_id'] ?? 0);
 $from       = $_GET['from'] ?? 'book';
 
-// التحقق من صحة القيم
 if ($comment_id <= 0 || $book_id <= 0) {
     header("Location: index.php");
     exit();
 }
 
-// التحقق من صحة قيمة from
+// التحقق من صحة قيمة الفورم
 $allowed = ['dashboard', 'book'];
 $from = in_array($from, $allowed) ? $from : 'book';
 

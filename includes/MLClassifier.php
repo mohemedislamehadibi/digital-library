@@ -1,8 +1,4 @@
 <?php
-/**
- * MLClassifier.php — نسخة مُصحَّحة
- * ضعه في: C:\xampp\htdocs\library\MLClassifier.php
- */
 class MLClassifier {
 
     private string $ml_dir;
@@ -15,9 +11,7 @@ class MLClassifier {
         $this->available  = $this->checkAvailable();
     }
 
-    // ============================================================
-    // التنبؤ بالفئة — الدالة الرئيسية
-    // ============================================================
+    
     public function predict(string $title, string $description = ''): array {
         if (!$this->available) {
             return $this->fallbackKeywords($title . ' ' . $description);
@@ -29,7 +23,7 @@ class MLClassifier {
         $script = $this->ml_dir . DIRECTORY_SEPARATOR . 'predict.py';
         $null   = PHP_OS_FAMILY === 'Windows' ? 'nul' : '/dev/null';
 
-        // ★ مسار Python بين علامتي تنصيص لأن المسار فيه مسافات
+      
         $cmd = sprintf(
             '"%s" "%s" %s %s 2>%s',
             $this->python_exe,
@@ -57,9 +51,7 @@ class MLClassifier {
         return $result;
     }
 
-    // ============================================================
-    // Fallback — Keyword Scoring
-    // ============================================================
+    
     private function fallbackKeywords(string $text): array {
         $text = mb_strtolower($text, 'UTF-8');
         $cats = [
@@ -105,9 +97,7 @@ class MLClassifier {
         ];
     }
 
-    // ============================================================
-    // ★ detectPython — يبحث عن Python تلقائياً + المسار الكامل
-    // ============================================================
+    
     private function detectPython(): string {
         // ★ المسارات الشائعة على Windows — يفحصها بالترتيب
         $windows_paths = [
@@ -120,7 +110,6 @@ class MLClassifier {
             'C:\Python310\python.exe',
         ];
 
-        // فحص المسارات المباشرة أولاً
         foreach ($windows_paths as $path) {
             if (file_exists($path)) {
                 error_log("MLClassifier: وجد Python في: $path");
@@ -128,7 +117,6 @@ class MLClassifier {
             }
         }
 
-        // محاولة الأوامر العامة
         foreach (['python', 'python3', 'py'] as $cmd) {
             $v = @shell_exec("$cmd --version 2>&1");
             if ($v && str_contains($v, 'Python 3')) {
@@ -137,7 +125,6 @@ class MLClassifier {
             }
         }
 
-        // محاولة py launcher (خاص بـ Windows)
         $py_check = @shell_exec('py -3 --version 2>&1');
         if ($py_check && str_contains($py_check, 'Python 3')) {
             return 'py -3';
@@ -171,9 +158,7 @@ class MLClassifier {
     public function getPythonPath(): string { return $this->python_exe; }
     public function getMlDir(): string     { return $this->ml_dir; }
 
-    // ============================================================
-    // ★ دالة التشخيص — تساعدك تعرف وش المشكلة
-    // ============================================================
+    
     public function diagnose(): array {
         $python_version = @shell_exec('"' . $this->python_exe . '" --version 2>&1');
         $script         = $this->ml_dir . DIRECTORY_SEPARATOR . 'predict.py';

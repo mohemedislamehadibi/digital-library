@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 require_once '../includes/db.php';
 require_once '../includes/csrf.php';
 
-// ── حذف كتاب واحد ──
+//  حذف كتاب واحد 
 if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
     $id   = (int)$_GET['delete_id'];
     $stmt = $pdo->prepare("SELECT cover_image, pdf_file FROM books WHERE id = ?");
@@ -20,7 +20,7 @@ if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
         $pdf   = '../assets/uploads/pdfs/'   . $book['pdf_file'];
         if ($book['cover_image'] && file_exists($cover)) unlink($cover);
         if ($book['pdf_file']   && file_exists($pdf))   unlink($pdf);
-        // ★ أفرغ book_id في import_queue أولاً قبل حذف الكتاب
+       
         $pdo->prepare("UPDATE import_queue SET book_id = NULL WHERE book_id = ?")->execute([$id]);
         $pdo->prepare("DELETE FROM books WHERE id = ?")->execute([$id]);
     }
@@ -28,7 +28,7 @@ if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
     exit();
 }
 
-// ── حذف الكل ──
+//  حذف الكل 
 if (isset($_POST['delete_all'])) {
     if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
         header("Location: dashboard.php?error=csrf");
@@ -41,14 +41,14 @@ if (isset($_POST['delete_all'])) {
         if ($b['cover_image'] && file_exists($cover)) unlink($cover);
         if ($b['pdf_file']   && file_exists($pdf))   unlink($pdf);
     }
-    // ★ أفرغ book_id في import_queue أولاً قبل حذف الكتب
+    
     $pdo->exec("UPDATE import_queue SET book_id = NULL WHERE book_id IS NOT NULL");
     $pdo->exec("DELETE FROM books");
     header("Location: dashboard.php?deleted_all=1");
     exit();
 }
 
-// ── إحصائيات ──
+//  إحصائيات 
 $total_books     = $pdo->query("SELECT COUNT(*) FROM books")->fetchColumn();
 $total_users     = $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
 $total_comments  = $pdo->query("SELECT COUNT(*) FROM comments")->fetchColumn();
@@ -56,7 +56,7 @@ $most_downloaded = $pdo->query(
     "SELECT title, downloads FROM books ORDER BY downloads DESC LIMIT 1"
 )->fetch();
 
-// ── بحث الكتب ──
+//  بحث الكتب 
 $search = trim($_GET['search'] ?? '');
 
 if ($search !== '') {
@@ -79,7 +79,7 @@ if ($search !== '') {
 }
 $books = $stmt->fetchAll();
 
-// ── تعليقات ──
+//  تعليقات 
 $comments = $pdo->query("
     SELECT c.*, b.title
     FROM comments c

@@ -12,13 +12,11 @@ import sys
 import os
 import json
 
-# ── إصلاح encoding على Windows ─────────────────────────────
 if sys.platform == 'win32':
     import io
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
-# ── التحقق من المكتبات ──────────────────────────────────────
 def check_libraries():
     missing = []
     try:
@@ -58,22 +56,18 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import classification_report
 from sklearn.pipeline import Pipeline
 
-# ════════════════════════════════════════════════════════════
-# ⚙️  الإعدادات — عدّلها حسب قاعدة بياناتك
-# ════════════════════════════════════════════════════════════
+
 DB_CONFIG = {
     'host':     '127.0.0.1',
-    'port':     3307,          # ← غيّره إذا كان XAMPP يستخدم 3306
+    'port':     3307,          
     'database': 'library_db',
     'user':     'root',
     'password': '',
     'charset':  'utf8mb4',
 }
 
-# مجلد حفظ النموذج — نفس ml_classifier في مشروعك
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ml_classifier')
 
-# أسماء التصنيفات
 CATEGORIES = {
     1:  "برمجة وتقنية",
     2:  "تاريخ وحضارات",
@@ -90,17 +84,13 @@ CATEGORIES = {
     13: "سياسة واقتصاد",
 }
 
-# ════════════════════════════════════════════════════════════
-# 1️⃣  جلب البيانات من قاعدة البيانات
-# ════════════════════════════════════════════════════════════
+
 def fetch_books():
     print("\n📡 الاتصال بقاعدة البيانات...")
     try:
         conn = pymysql.connect(**DB_CONFIG)
         cursor = conn.cursor()
 
-        # نجلب العنوان + الوصف + التصنيف
-        # نتجاهل الكتب التي ليس لها تصنيف أو وصف
         cursor.execute("""
             SELECT 
                 b.id,
@@ -126,9 +116,7 @@ def fetch_books():
         print("  2. إعدادات DB_CONFIG صحيحة في أعلى الملف")
         sys.exit(1)
 
-# ════════════════════════════════════════════════════════════
-# 2️⃣  تحضير البيانات للتدريب
-# ════════════════════════════════════════════════════════════
+
 def prepare_data(books):
     print("\n🔧 تحضير البيانات...")
 
@@ -136,13 +124,10 @@ def prepare_data(books):
     labels = []
     skipped = 0
 
-    # إحصاء كتب لكل تصنيف
     cat_counts = {}
 
     for book_id, title, desc, cat_id, cat_name in books:
-        # دمج العنوان والوصف — هذا ما سيتعلم منه النموذج
         text = f"{title} {title} {desc}".strip()
-        # نكرر العنوان مرتين لأنه أهم من الوصف
 
         if len(text) < 3:
             skipped += 1
@@ -164,9 +149,7 @@ def prepare_data(books):
 
     return texts, labels
 
-# ════════════════════════════════════════════════════════════
-# 3️⃣  التدريب
-# ════════════════════════════════════════════════════════════
+
 def train_model(texts, labels):
     total = len(texts)
     unique_cats = len(set(labels))
@@ -175,30 +158,26 @@ def train_model(texts, labels):
     print(f"   إجمالي الكتب:     {total}")
     print(f"   عدد التصنيفات:    {unique_cats}")
 
-    # ── اختيار النموذج حسب حجم البيانات ──────────────────
     if total < 30:
         print(f"\n⚠️  تحذير: {total} كتاب قليلة جداً للتدريب!")
         print("   النتائج ستكون غير موثوقة.")
         print("   يُنصح بـ 50+ كتاب على الأقل.")
         print("   سيستمر التدريب لكن الدقة ستكون منخفضة.\n")
 
-    # ── TF-IDF Vectorizer ─────────────────────────────────
-    # هذا يحول النصوص لأرقام يفهمها النموذج
+
     vectorizer = TfidfVectorizer(
-        max_features=3000,      # أهم 3000 كلمة
-        min_df=1,               # الكلمة تظهر مرة واحدة على الأقل
-        ngram_range=(1, 2),     # كلمة واحدة أو كلمتين معاً "self help"
-        sublinear_tf=True,      # يقلص التكرار الكبير
+        max_features=3000,     
+        min_df=1,              
+        ngram_range=(1, 2),    
+        sublinear_tf=True,     
         analyzer='word',
-        token_pattern=r'(?u)\b\w+\b',  # يقبل العربية والإنجليزية
+        token_pattern=r'(?u)\b\w+\b',  
     )
 
     X = vectorizer.fit_transform(texts)
     y = np.array(labels)
 
-    # ── اختيار الخوارزمية ─────────────────────────────────
     if total >= 100:
-        # RandomForest أفضل مع بيانات كثيرة
         model = RandomForestClassifier(
             n_estimators=300,
             max_depth=None,
@@ -208,7 +187,6 @@ def train_model(texts, labels):
         )
         model_name = "RandomForest"
     else:
-        # LogisticRegression أفضل مع بيانات قليلة
         model = LogisticRegression(
             C=5.0,
             max_iter=2000,
@@ -220,9 +198,7 @@ def train_model(texts, labels):
 
     print(f"   الخوارزمية: {model_name}")
 
-    # ── التدريب والاختبار ─────────────────────────────────
     if total >= 20:
-        # تحقق: هل كل تصنيف عنده كتابين على الأقل للتقسيم؟
         from collections import Counter
         label_counts = Counter(y.tolist())
         rare = [c for c, cnt in label_counts.items() if cnt < 2]
@@ -236,7 +212,6 @@ def train_model(texts, labels):
         else:
             use_stratify = y
 
-        # تقسيم: 80% تدريب، 20% اختبار
         X_train, X_test, y_train, y_test = train_test_split(
             X, y,
             test_size=0.2,
@@ -249,7 +224,7 @@ def train_model(texts, labels):
 
         model.fit(X_train, y_train)
 
-        # قياس الدقة
+        
         train_acc = model.score(X_train, y_train)
         test_acc  = model.score(X_test, y_test)
 
@@ -257,7 +232,7 @@ def train_model(texts, labels):
         print(f"   دقة التدريب:  {train_acc * 100:.1f}%")
         print(f"   دقة الاختبار: {test_acc  * 100:.1f}%")
 
-        # تقرير تفصيلي لكل تصنيف
+      
         y_pred = model.predict(X_test)
         cat_labels = [CATEGORIES.get(c, str(c)) for c in sorted(set(y))]
         print(f"\n📋 تفاصيل دقة كل تصنيف:")
@@ -268,27 +243,24 @@ def train_model(texts, labels):
             zero_division=0
         ))
 
-        # Cross-validation للتحقق
+       
         if total >= 50:
             print("🔄 Cross-Validation (5-fold)...")
             cv_scores = cross_val_score(model, X, y, cv=5)
             print(f"   متوسط الدقة: {cv_scores.mean() * 100:.1f}% (±{cv_scores.std() * 100:.1f}%)")
 
     else:
-        # بيانات قليلة جداً → ندرّب على الكل
+      
         print("\n⚠️  بيانات قليلة — التدريب على كل البيانات بدون اختبار")
         model.fit(X, y)
 
-    # ── إعادة التدريب على كل البيانات ───────────────────
-    # نهائياً نستخدم كل البيانات للنموذج الحقيقي
+    
     print("\n🔁 التدريب النهائي على كامل البيانات...")
     model.fit(X, y)
 
     return vectorizer, model
 
-# ════════════════════════════════════════════════════════════
-# 4️⃣  حفظ النموذج
-# ════════════════════════════════════════════════════════════
+
 def save_model(vectorizer, model):
     print(f"\n💾 حفظ النموذج في: {OUTPUT_DIR}")
 
@@ -300,7 +272,6 @@ def save_model(vectorizer, model):
     joblib.dump(vectorizer, vec_path)
     joblib.dump(model,      model_path)
 
-    # حفظ معلومات التدريب
     info = {
         'categories':     CATEGORIES,
         'vectorizer':     str(type(vectorizer).__name__),
@@ -316,9 +287,7 @@ def save_model(vectorizer, model):
     print(f"   ✅ model.pkl")
     print(f"   ✅ model_info.json")
 
-# ════════════════════════════════════════════════════════════
-# 5️⃣  اختبار سريع بعد الحفظ
-# ════════════════════════════════════════════════════════════
+
 def quick_test(vectorizer, model):
     print("\n🧪 اختبار سريع:")
 
@@ -339,9 +308,7 @@ def quick_test(vectorizer, model):
         conf  = round(float(max(proba)) * 100, 1)
         print(f"   '{title}' → {CATEGORIES.get(cat, '?')} ({conf}%)")
 
-# ════════════════════════════════════════════════════════════
-# 🚀  التشغيل الرئيسي
-# ════════════════════════════════════════════════════════════
+
 if __name__ == "__main__":
     print("=" * 55)
     print("  🤖 تدريب نموذج تصنيف الكتب")

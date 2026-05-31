@@ -58,7 +58,7 @@ try {
     }
 
     $_SESSION['username'] = $new_username;
-    consume_csrf_token(); // ✅ نجاح — احذف التوكن
+    consume_csrf_token(); 
     header("Location: profile.php?status=updated");
     exit();
 

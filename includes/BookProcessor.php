@@ -1,26 +1,17 @@
 <?php
-/**
- * BookProcessor.php  —  النسخة المُحدَّثة
- * 
- * التغيير الرئيسي:
- *   قبل:  autoClassify (keywords فقط)
- *   بعد:  ML أولاً → keywords كـ fallback
- */
-
-// استيراد MLClassifier
 require_once __DIR__ . '/MLClassifier.php';
 
 class BookProcessor {
     private $pdo;
     private $queue_id;
-    private $ml;           // ← جديد: نموذج ML
+    private $ml;         
 
     public function __construct($pdo, $queue_id = null) {
         $this->pdo      = $pdo;
         $this->queue_id = $queue_id;
-        $this->ml       = new MLClassifier();  // ← جديد
+        $this->ml       = new MLClassifier();  
 
-        // سجّل حالة ML عند البدء
+        
         if ($this->ml->isAvailable()) {
             $this->log("✅ نموذج ML متاح", 'info');
         } else {
@@ -28,13 +19,10 @@ class BookProcessor {
         }
     }
 
-    // ════════════════════════════════════════════════════════
-    // ★ الدالة الجديدة — التصنيف الذكي
-    //   ML أولاً، keywords كـ fallback
-    // ════════════════════════════════════════════════════════
+    
    public function smartClassify(string $title, string $description = '', ?string $pdf_path = null): int {
         
-        // ── المحاولة 1: نص PDF (الأدق) ───────────────────
+      
         if ($pdf_path) {
             $pdf_text = $this->extractTextFromPdf($pdf_path);
             if (!empty(trim($pdf_text))) {
@@ -44,13 +32,13 @@ class BookProcessor {
             }
         }
 
-        // ── المحاولة 2: ML بـ عنوان + وصف ───────────────
+      
         if ($this->ml->isAvailable()) {
             $result = $this->ml->predict($title, $description);
             $conf   = $result['confidence'] ?? 0;
 
             if ($conf >= 0.30) {
-                // ثقة عالية → استخدم ML مباشرة
+               
                 $this->log(
                     "🤖 ML: {$result['category_name']} (ثقة: " . round($conf * 100) . "%)",
                     'success'
@@ -59,17 +47,15 @@ class BookProcessor {
             }
 
             if ($conf >= 0.15) {
-                // ثقة متوسطة → قارن مع keywords
-                $kw_cat = $this->autoClassify($title . ' ' . $description);
-                if ($result['category_id'] === $kw_cat) {
-                    // الاثنان متفقان → ثقة عالية
-                    $this->log(
-                        "🤖+🔑 ML وKeywords متفقان: {$result['category_name']}",
+
+$kw_cat = $this->autoClassify($title . ' ' . $description);
+if ($result['category_id'] === $kw_cat) {
+$this->log(
+"🤖+🔑 ML وKeywords متفقان: {$result['category_name']}",
                         'success'
-                    );
+);
                     return $result['category_id'];
                 }
-                // اختلفا → اختر ML لأنه يفهم السياق أفضل
                 $this->log(
                     "🤖 ML (اختلف مع Keywords): {$result['category_name']} vs تصنيف $kw_cat",
                     'info'
@@ -77,32 +63,25 @@ class BookProcessor {
                 return $result['category_id'];
             }
 
-            // ثقة منخفضة جداً → keywords
             $this->log("⚠️ ML غير واثق ({$conf}) → Keyword Scoring", 'warning');
         }
 
-        // ── المحاولة 3: Keyword Scoring ──────────────────
         $cat_id = $this->autoClassify($title . ' ' . $description);
         $this->log("🔑 Keyword Scoring → تصنيف $cat_id", 'info');
         return $cat_id;
     }
 
-    // دالة مساعدة — تصنيف نص طويل (من PDF مثلاً)
     private function classifyText(string $title, string $text): int {
         if ($this->ml->isAvailable()) {
-            // نأخذ أول 500 حرف من PDF كوصف
             $snippet = mb_substr($text, 0, 500, 'UTF-8');
             $result  = $this->ml->predict($title, $snippet);
-            if (($result['confidence'] ?? 0) >= 0.25) {
+if (($result['confidence'] ?? 0) >= 0.25) {
                 return $result['category_id'];
             }
         }
         return $this->autoClassify($text);
     }
 
-    // ════════════════════════════════════════════════════════
-    // معالجة كتاب كامل — مُحدَّث ليستخدم smartClassify
-    // ════════════════════════════════════════════════════════
     public function processBook($title, $pdf_url = null, $pdf_path = null, $isbn = null) {
         try {
             $title = trim($title);
@@ -111,7 +90,6 @@ class BookProcessor {
                 return null;
             }
 
-            // تحقق من التكرار
             $stmt = $this->pdo->prepare("SELECT id FROM books WHERE title = ? LIMIT 1");
             $stmt->execute([$title]);
             if ($stmt->fetch()) {
@@ -119,7 +97,6 @@ class BookProcessor {
                 return null;
             }
 
-            // جلب البيانات من API
             $book_data = $this->getBookDataWithCache($title, $isbn);
 
             $author      = 'غير معروف';
@@ -132,11 +109,9 @@ class BookProcessor {
                 $cover       = $this->saveCover($book_data['cover'] ?? null, $title);
             }
 
-            // ★ التصنيف الذكي (ML أولاً)
             $local_pdf = $pdf_path && file_exists($pdf_path) ? $pdf_path : null;
             $cat_id    = $this->smartClassify($title, $description, $local_pdf);
 
-            // حفظ في DB
             $stmt = $this->pdo->prepare("
                 INSERT INTO books
                     (title, author, description, category_id,
@@ -162,10 +137,7 @@ class BookProcessor {
         }
     }
 
-    // ════════════════════════════════════════════════════════
-    // كل الدوال القديمة تبقى كما هي
-    // ════════════════════════════════════════════════════════
-
+   
     public function getBookDataWithCache($title, $isbn = null) {
         $search_key  = $isbn ?: $title;
         $search_type = $isbn ? 'isbn' : 'title';
@@ -280,7 +252,6 @@ class BookProcessor {
         return json_decode($response, true);
     }
 
-    // ── autoClassify يبقى كـ fallback فقط ─────────────────
     public function autoClassify($text) {
         $text = mb_strtolower($text, 'UTF-8');
         $scores = [
@@ -350,7 +321,7 @@ class BookProcessor {
             ORDER BY created_at ASC
             LIMIT ?
         ");
-        $stmt->bindValue(1, (int)$limit, PDO::PARAM_INT);  // ← إصلاح خطأ MariaDB
+        $stmt->bindValue(1, (int)$limit, PDO::PARAM_INT);  
         $stmt->execute();
         $jobs = $stmt->fetchAll();
         if (empty($jobs)) return 0;

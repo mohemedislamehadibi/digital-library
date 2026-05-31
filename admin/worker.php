@@ -1,5 +1,5 @@
 <?php
-// filepath: c:\xampp\htdocs\library\admin\worker.php
+
 
 require_once dirname(__DIR__) . '/includes/db.php';
 require_once dirname(__DIR__) . '/includes/BookProcessor.php';
@@ -22,7 +22,7 @@ try {
     $processor = new BookProcessor($pdo);
     log_worker("🚀 Worker بدأ التشغيل");
 
-    // ✅ معالجة الطابور
+    
     $processed = $processor->processQueue(5);
 
     if ($processed > 0) {
@@ -31,7 +31,7 @@ try {
         log_worker("💤 لا توجد وظائف معلقة");
     }
 
-    // ✅ الإحصائيات
+    
     $stats = $processor->getQueueStats();
     log_worker("📊 الإحصائيات - الكلي: {$stats['total']}, المعلقة: {$stats['pending']}, المنجزة: {$stats['done']}, الفاشلة: {$stats['failed']}");
 

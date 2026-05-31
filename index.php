@@ -5,7 +5,7 @@ require_once 'includes/db.php';
 $search          = $_GET['search'] ?? '';
 $category_filter = $_GET['category'] ?? '';
 
-// ✅ استخدام عمود avg_rating المخزون بدلاً من subquery في كل صف
+
 $query  = "SELECT b.*, c.name as category_name
            FROM books b
            LEFT JOIN categories c ON b.category_id = c.id

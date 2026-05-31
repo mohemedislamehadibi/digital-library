@@ -6,15 +6,12 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 }
 require_once '../includes/db.php';
 
-// ============================================================
-// ★ إيجاد Python — المسار الصريح يتجاوز مشكلة PATH في Apache
-// ============================================================
 function findPython(): string {
-    // ★ المسار الصريح لجهازك — تم التحقق منه في CMD
+    
     $explicit = 'C:\\Users\\ALEM\\AppData\\Local\\Programs\\Python\\Python313\\python.exe';
     if (file_exists($explicit)) return $explicit;
 
-    // مسارات شائعة أخرى
+    
     $win_paths = [
         'C:\\Python313\\python.exe',
         'C:\\Python312\\python.exe',
@@ -29,7 +26,7 @@ function findPython(): string {
     return 'python';
 }
 
-$python_raw  = findPython();   // المسار الخام بدون quotes
+$python_raw  = findPython();  
 $ml_dir      = realpath(__DIR__ . '/../ml_classifier');
 $script_path = $ml_dir ? ($ml_dir . DIRECTORY_SEPARATOR . 'generate_scatter.py') : '';
 
@@ -45,8 +42,7 @@ $debug_cmd = '';
 
 if ($script_path && file_exists($script_path)) {
 
-    // ★ بناء الأمر الصحيح:
-    // escapeshellarg يضع quotes مناسبة حول المسارات التي تحتوي spaces
+    
     $cmd = escapeshellarg($python_raw)
          . ' ' . escapeshellarg($script_path)
          . ' --host ' . escapeshellarg($db_host)
@@ -60,10 +56,10 @@ if ($script_path && file_exists($script_path)) {
     $output    = @shell_exec($cmd);
 
     if ($output && strlen(trim($output)) > 0) {
-        // تنظيف المخرج من BOM وأي نص قبل JSON
+    
         $clean = trim($output);
         $clean = preg_replace('/^\xEF\xBB\xBF/', '', $clean); // BOM
-        // خذ السطر الأول الذي يبدأ بـ {
+       
         foreach (explode("\n", $clean) as $line) {
             $line = trim($line);
             if (str_starts_with($line, '{')) {
@@ -80,7 +76,7 @@ if ($script_path && file_exists($script_path)) {
             $ml_error = 'لم يُعثر على JSON في المخرج: ' . substr($clean, 0, 300);
         }
     } else {
-        // محاولة ثانية مع stderr مرئي للتشخيص
+       
         $cmd2   = escapeshellarg($python_raw)
                 . ' ' . escapeshellarg($script_path)
                 . ' --host ' . escapeshellarg($db_host)
@@ -96,9 +92,7 @@ if ($script_path && file_exists($script_path)) {
     $ml_error = 'generate_scatter.py غير موجود في: ' . ($ml_dir ?: 'مسار غير صالح');
 }
 
-// ============================================================
-// Keyword Scoring — يعمل دائماً بدون Python
-// ============================================================
+
 function kwClassify(string $text): array {
     $text = mb_strtolower($text, 'UTF-8');
     $cats = [
@@ -135,9 +129,7 @@ function kwClassify(string $text): array {
     return ['category_id' => $best_id, 'category_name' => $cats[$best_id], 'score' => $scores[$best]];
 }
 
-// ============================================================
-// جلب كتب DB الحقيقية
-// ============================================================
+
 $books = $pdo->query("
     SELECT b.id, b.title, b.author, b.description, b.category_id,
            c.name as cat_name
@@ -437,7 +429,7 @@ const CAT_COLORS = {
 };
 const PALETTE = Object.values(CAT_COLORS);
 
-// أشرطة مقارنة
+
 setTimeout(() => {
     document.querySelectorAll('.bar-fill').forEach(el => {
         const v = el.dataset.val;

@@ -154,32 +154,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <label class="form-label">التصنيف *</label>
                                 <select name="category_id" class="form-select" required>
                                     <?php foreach ($categories as $cat): ?>
-                                        <option value="<?php echo $cat['id']; ?>"
-                                            <?php echo $book['category_id'] == $cat['id'] ? 'selected' : ''; ?>>
-                                            <?php echo htmlspecialchars($cat['name']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">وصف الكتاب</label>
-                                <textarea name="description" class="form-control" rows="3"><?php echo htmlspecialchars($book['description'] ?? ''); ?></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">صورة غلاف جديدة (اختياري) — حد أقصى 5MB</label>
-                                <input type="file" name="cover_image" class="form-control" accept="image/*">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">ملف PDF جديد (اختياري) — حد أقصى 50MB</label>
-                                <input type="file" name="pdf_file" class="form-control" accept=".pdf">
-                            </div>
-                            <button type="submit" class="btn btn-warning btn-lg">حفظ التعديلات</button>
-                            <a href="dashboard.php" class="btn btn-secondary btn-lg me-2">إلغاء</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<option value="<?php echo $cat['id']; ?>"
+<?php echo $book['category_id'] == $cat['id'] ? 'selected' : ''; ?>>
+<?php echo htmlspecialchars($cat['name']); ?>
+</option>
+<?php endforeach; ?>
+</select>
+</div>
+<div class="mb-3">
+<label class="form-label">وصف الكتاب</label>
+<textarea name="description" class="form-control" rows="3"><?php echo htmlspecialchars($book['description'] ?? ''); ?></textarea>
+</div>
+<div class="mb-3">
+<label class="form-label">صورة غلاف جديدة (اختياري) — حد أقصى 5MB</label>
+<input type="file" name="cover_image" class="form-control" accept="image/*">
+</div>
+<div class="mb-3">
+<label class="form-label">ملف PDF جديد (اختياري) — حد أقصى 50MB</label>
+<input type="file" name="pdf_file" class="form-control" accept=".pdf">
+</div>
+<button type="submit" class="btn btn-warning btn-lg">حفظ التعديلات</button>
+<a href="dashboard.php" class="btn btn-secondary btn-lg me-2">إلغاء</a>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
