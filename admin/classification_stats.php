@@ -92,7 +92,7 @@ if ($script_path && file_exists($script_path)) {
     $ml_error = 'generate_scatter.py غير موجود في: ' . ($ml_dir ?: 'مسار غير صالح');
 }
 
-
+// دوال التصنيف بالكلمات المفتاحية
 function kwClassify(string $text): array {
     $text = mb_strtolower($text, 'UTF-8');
     $cats = [

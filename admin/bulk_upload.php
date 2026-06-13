@@ -13,169 +13,42 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 require_once '../includes/db.php';
 require_once '../includes/BookProcessor.php';
 
-
-function searchGoogleBooks($title) {
-    $query    = urlencode($title);
-    $url      = "https://www.googleapis.com/books/v1/volumes?q={$query}&maxResults=1";
-    // ★ timeout=12 بدل 8 — أكثر موثوقية مع 100 كتاب
-    $context  = stream_context_create(['http' => [
-        'timeout'         => 12,
-        'header'          => 'User-Agent: Mozilla/5.0',
-        'follow_location' => 1,
-    ]]);
-    $response = @file_get_contents($url, false, $context);
-    if (!$response) return null;
-    $data = json_decode($response, true);
-    if (empty($data['items'])) return null;
-    $book = $data['items'][0]['volumeInfo'];
-    return [
-        'author'      => isset($book['authors']) ? implode(', ', $book['authors']) : 'غير معروف',
-        'description' => isset($book['description']) ? substr(strip_tags($book['description']), 0, 800) : '',
-        'cover'       => isset($book['imageLinks']['thumbnail'])
-                         ? str_replace('http://', 'https://', $book['imageLinks']['thumbnail']) : null,
-        'category'    => isset($book['categories']) ? $book['categories'][0] : '',
-        'source'      => 'google',
-    ];
+// ── CSRF helpers ──────────────────────────────────────────────────────────────
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-function searchOpenLibrary($title) {
-    $query    = urlencode($title);
-    $url      = "https://openlibrary.org/search.json?title={$query}&limit=1&fields=title,author_name,first_sentence,subject,cover_i";
-    $context  = stream_context_create(['http' => [
-        'timeout'         => 12,
-        'header'          => 'User-Agent: Mozilla/5.0',
-        'follow_location' => 1,
-    ]]);
-    $response = @file_get_contents($url, false, $context);
-    if (!$response) return null;
-    $data = json_decode($response, true);
-    if (empty($data['docs'])) return null;
-    $book = $data['docs'][0];
-    $desc = '';
-    if (isset($book['first_sentence'])) {
-        $desc = is_array($book['first_sentence'])
-            ? implode(' ', array_slice($book['first_sentence'], 0, 3))
-            : $book['first_sentence'];
-        $desc = substr($desc, 0, 800);
+function verifyCsrf(): void
+{
+    $token = $_POST['csrf_token'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'], $token)) {
+        http_response_code(403);
+        die('طلب غير صالح — توكن CSRF خاطئ.');
     }
-    $cat = '';
-    if (isset($book['subject']) && is_array($book['subject'])) {
-        $cat = implode(' ', array_slice($book['subject'], 0, 5));
-    }
-    return [
-        'author'      => isset($book['author_name']) ? implode(', ', $book['author_name']) : 'غير معروف',
-        'description' => $desc,
-        'cover'       => isset($book['cover_i'])
-                         ? "https://covers.openlibrary.org/b/id/{$book['cover_i']}-L.jpg" : null,
-        'category'    => $cat,
-        'source'      => 'openlibrary',
-    ];
 }
-
-function getBookData($title) {
-    $r = searchGoogleBooks($title);
-    if ($r && !empty($r['description'])) return $r; // ★ Google مع وصف كامل
-    $ol = searchOpenLibrary($title);
-    if ($ol && !empty($ol['description'])) return $ol; // ★ Open Library مع وصف
-    return $r ?? $ol; // أي نتيجة حتى بدون وصف
-}
+// ─────────────────────────────────────────────────────────────────────────────
 
 
-function autoClassify($text) {
-    $text = mb_strtolower($text, 'UTF-8');
-    $scores = [
-        1  => ['software','programming','java','sql','code','python','database',
-               'javascript','algorithms','computer','coding','developer',
-               'machine learning','data science',
-               'برمجة','كود','حاسوب','تقنية','بيانات','شبكات','ذكاء اصطناعي'],
-        2  => ['history','war','ancient','century','battles','civilization',
-               'empire','historical','medieval','ottoman','roman','napoleon',
-               'revolution','dynasty',
-               'تاريخ','حرب','حضارة','قرن','معركة','دولة','خلافة','عثماني','ثورة'],
-        3  => ['math','physics','calculus','science','mathematics','algebra',
-               'chemistry','biology','astronomy','universe','quantum','genetics',
-               'علوم','فيزياء','رياضيات','كيمياء','أحياء','طب','هندسة','فلك'],
-        4  => ['novel','story','drama','classic','literature','poetry','prose',
-               'narrative','tale','fiction',
-               'dostoevsky','tolstoy','kafka','hugo','dickens','hemingway',
-               'shakespeare','orwell','fitzgerald','chekhov',
-               'crime punishment','brothers karamazov','anna karenina',
-               'les miserables','great gatsby','metamorphosis',
-               'نجيب محفوظ','طه حسين','جبران',
-               'رواية','قصة','أدب','شعر','ديوان','مسرحية','نثر'],
-        5  => ['general','عام','متنوع'],
-        6  => ['fantasy','magic','dragon','wizard','witch','spell','mythical',
-               'tolkien','narnia','hobbit','harry potter','gandalf',
-               'فانتازيا','سحر','تنين','ساحر','أسطورة','مملكة'],
-        7  => ['horror','scary','ghost','haunted','terror','nightmare',
-               'demon','vampire','zombie','evil','darkness',
-               'stephen king','lovecraft','dracula','frankenstein',
-               'رعب','مخيف','شبح','ظلام','خوف','وحش','مسكون'],
-        8  => ['mystery','thriller','detective','crime','murder','suspense',
-               'investigation','sherlock','spy','agatha christie','conan doyle',
-               'غموض','تشويق','محقق','جريمة','قتل','سر','تحقيق','جاسوس'],
-        9  => ['science fiction','sci-fi','space','robot','alien','dystopia',
-               'dystopian','future','galaxy','spacecraft','cyberpunk',
-               'asimov','dune','matrix','brave new world','1984',
-               'خيال علمي','فضاء','روبوت','مستقبل','مجرة','ديستوبيا'],
-        10 => ['autobiography','biography','memoir','life story','diary',
-               'سيرة ذاتية','مذكرات','يوميات','حياة'],
-        11 => ['self help','motivation','success','leadership','productivity',
-               'mindset','habits','personal development','rich','wealth',
-               'dale carnegie','napoleon hill','tony robbins','think grow rich',
-               'تطوير ذات','نجاح','قيادة','إنتاجية','عادات','تحفيز','ثروة'],
-        12 => ['islam','quran','hadith','prophet','religious','faith',
-               'muhammad','muslim','prayer','fasting','hajj','fiqh',
-               'إسلام','قرآن','حديث','نبي','دين','فقه','عقيدة','إيمان','صلاة'],
-        13 => ['politics','economy','government','democracy','economics',
-               'capitalism','socialism','communism','karl marx','machiavelli',
-               'سياسة','اقتصاد','حكومة','ديمقراطية','رأسمالية','انتخابات'],
-    ];
-    $results = [];
-    foreach ($scores as $id => $keywords) {
-        $results[$id] = 0;
-        foreach ($keywords as $word) {
-            if (strpos($text, $word) !== false) $results[$id]++;
-        }
-    }
-    arsort($results);
-    $best = key($results);
-    return $results[$best] > 0 ? $best : 5;
-}
-
-function saveCoverFromUrl($url) {
-    if (!$url || !filter_var($url, FILTER_VALIDATE_URL)) return 'default_book.jpg';
-    $context    = stream_context_create(['http' => [
-        'timeout' => 10, 'header' => 'User-Agent: Mozilla/5.0', 'follow_location' => 1,
-    ]]);
-    $image_data = @file_get_contents($url, false, $context);
-    if (!$image_data || strlen($image_data) === 0) return 'default_book.jpg';
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mime  = finfo_buffer($finfo, $image_data);
-    finfo_close($finfo);
-    if (!in_array($mime, ['image/jpeg', 'image/png', 'image/webp'])) return 'default_book.jpg';
-    $filename = 'cover_' . uniqid() . '.jpg';
-    if (@file_put_contents('../assets/uploads/covers/' . $filename, $image_data)) return $filename;
-    return 'default_book.jpg';
-}
-
-
-// CSV Mode
+// ══ CSV Mode ══════════════════════════════════════════════════════════════════
 
 $csv_message = "";
 $csv_log     = [];
 
 if (isset($_POST["import_csv"])) {
+    verifyCsrf();   
+
     $ext = strtolower(pathinfo($_FILES["csv_file"]["name"], PATHINFO_EXTENSION));
     if ($ext !== 'csv') {
         $csv_message = "<div class='alert alert-danger'>يجب أن يكون الملف بصيغة CSV!</div>";
     } elseif ($_FILES["csv_file"]["size"] <= 0) {
         $csv_message = "<div class='alert alert-danger'>الملف فارغ!</div>";
     } else {
-        $file   = fopen($_FILES["csv_file"]["tmp_name"], "r");
+        $file      = fopen($_FILES["csv_file"]["tmp_name"], "r");
         fgetcsv($file);
-        $count  = 0;
-        $errors = 0;
+        $count     = 0;
+        $errors    = 0;
+        $processor = new BookProcessor($pdo);
+
         try {
             while (($col = fgetcsv($file, 1000, ",")) !== false) {
                 if (count($col) < 2) { $errors++; continue; }
@@ -191,35 +64,37 @@ if (isset($_POST["import_csv"])) {
                     continue;
                 }
 
-                $book_data   = getBookData($title);
+                $book_data   = $processor->getBookDataWithCache($title);
                 $author      = 'غير معروف';
                 $description = '';
                 $cover       = 'default_book.jpg';
 
                 if ($book_data) {
-                    $author      = htmlspecialchars($book_data['author'], ENT_QUOTES, 'UTF-8');
-                    $description = htmlspecialchars($book_data['description'], ENT_QUOTES, 'UTF-8');
-                    $cover       = saveCoverFromUrl($book_data['cover']);
-  
-                    $src     = $book_data['source'] ?? 'api';
+                    $author      = $book_data['author']      ?? 'غير معروف';
+                    $description = $book_data['description'] ?? '';
+                    $cover       = $processor->saveCover($book_data['cover'] ?? null, $title);
+
+                    $src      = $book_data['api_source'] ?? 'api';
                     $has_desc = !empty($book_data['description']) ? '📝 وصف موجود' : '⚠️ بدون وصف';
-                    $csv_log[] = "✅ <b>" . htmlspecialchars($title) . "</b> — $src | $has_desc | المؤلف: $author";
+                    $csv_log[] = "✅ <b>" . htmlspecialchars($title) . "</b> — $src | $has_desc | المؤلف: " . htmlspecialchars($author);
                 } else {
-          $csv_log[] = "⚠️ <b>" . htmlspecialchars($title) . "</b> — لم يُعثر على بيانات API (يُصنَّف بالعنوان)";
+                    $csv_log[] = "⚠️ <b>" . htmlspecialchars($title) . "</b> — لم يُعثر على بيانات API (يُصنَّف بالعنوان)";
                 }
 
-  
                 $cat_text = ($book_data['category'] ?? '')
                           . ' ' . $description
                           . ' ' . $title;
 
-                $cat_id = autoClassify($cat_text);
+                $cat_id = $processor->autoClassify($cat_text);
 
+               
                 $stmt = $pdo->prepare("INSERT INTO books (title,author,description,category_id,pdf_file,cover_image,created_at,downloads,views) VALUES (?,?,?,?,?,?,NOW(),0,0)");
                 $stmt->execute([
-                    htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
-                    $author, $description, $cat_id,
-                    htmlspecialchars($pdf_url, ENT_QUOTES, 'UTF-8'),
+                    $title,
+                    $author,
+                    $description,
+                    $cat_id,
+                    $pdf_url,
                     $cover,
                 ]);
                 $count++;
@@ -228,8 +103,8 @@ if (isset($_POST["import_csv"])) {
                          . ($errors > 0 ? " — تخطي <b>$errors</b>" : "")
                          . " — <a href='classification_stats.php'>عرض الإحصائيات</a></div>";
         } catch (Exception $e) {
-            error_log($e->getMessage());
-            $csv_message = "<div class='alert alert-danger'>❌ خطأ: " . htmlspecialchars($e->getMessage()) . "</div>";
+            error_log('[bulk_upload CSV] ' . $e->getMessage());   // #3
+            $csv_message = "<div class='alert alert-danger'>❌ عذرًا، حدث خطأ أثناء الاستيراد. يرجى المحاولة مجدداً.</div>";
         } finally {
             fclose($file);
         }
@@ -237,12 +112,14 @@ if (isset($_POST["import_csv"])) {
 }
 
 
-// PDF Batch Mode
+// ══ PDF Batch Mode ════════════════════════════════════════════════════════════
 
 $pdf_message = "";
 $pdf_log     = [];
 
 if (isset($_POST["import_pdfs"])) {
+    verifyCsrf();   // #1
+
     $files  = $_FILES["pdf_files"];
     $count  = 0;
     $errors = 0;
@@ -254,6 +131,9 @@ if (isset($_POST["import_pdfs"])) {
         $dir_cover = '../assets/uploads/covers/';
         if (!is_dir($dir_pdf))   mkdir($dir_pdf,   0755, true);
         if (!is_dir($dir_cover)) mkdir($dir_cover, 0755, true);
+
+       
+        $processor = new BookProcessor($pdo);
 
         for ($i = 0; $i < count($files["name"]); $i++) {
             $orig_name = $files["name"][$i];
@@ -287,7 +167,6 @@ if (isset($_POST["import_pdfs"])) {
                 continue;
             }
 
-            $processor = new BookProcessor($pdo);
             $book_data = $processor->getBookDataWithCache($title);
 
             $author      = 'غير معروف';
@@ -295,39 +174,32 @@ if (isset($_POST["import_pdfs"])) {
             $cover       = 'default_book.jpg';
 
             if ($book_data) {
-                $author      = htmlspecialchars($book_data['author'] ?? 'غير معروف', ENT_QUOTES, 'UTF-8');
-                $description = htmlspecialchars($book_data['description'] ?? '', ENT_QUOTES, 'UTF-8');
+                $author      = $book_data['author']      ?? 'غير معروف';
+                $description = $book_data['description'] ?? '';
                 $cover       = $processor->saveCover($book_data['cover'] ?? null, $title);
-                $pdf_log[]   = "✅ <b>" . htmlspecialchars($title) . "</b> — API (المؤلف: $author)";
+                $pdf_log[]   = "✅ <b>" . htmlspecialchars($title) . "</b> — API (المؤلف: " . htmlspecialchars($author) . ")";
             } else {
                 $pdf_log[] = "⚠️ <b>" . htmlspecialchars($title) . "</b> — لا بيانات API";
             }
 
-              $classify_text = $processor->buildClassificationText(
-                $book_data ?? [],
-                $pdf_full_path
-            );
-
-  
-            $pdf_text = $processor->extractTextFromPdf($pdf_full_path);
-            if (!empty($pdf_text)) {
-                $pdf_log[] = "📄 <b>" . htmlspecialchars($title) . "</b> — تصنيف من نص PDF";
-            }
-
-  
-            $classify_text = trim($classify_text . ' ' . $title);
-            $cat_id        = $processor->autoClassify($classify_text);
+            
+            $cat_id = $processor->smartClassify($title, $description, $pdf_full_path);
 
             try {
+                
                 $stmt = $pdo->prepare("INSERT INTO books (title,author,description,category_id,pdf_file,cover_image,created_at,downloads,views) VALUES (?,?,?,?,?,?,NOW(),0,0)");
                 $stmt->execute([
-                    htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
-                    $author, $description, $cat_id,
-                    $pdf_new_name, $cover,
+                    $title,
+                    $author,
+                    $description,
+                    $cat_id,
+                    $pdf_new_name,
+                    $cover,
                 ]);
                 $count++;
             } catch (Exception $e) {
-                $pdf_log[] = "❌ DB: " . htmlspecialchars($e->getMessage());
+                error_log('[bulk_upload PDF] ' . $e->getMessage());   // #3
+                $pdf_log[] = "❌ <b>" . htmlspecialchars($title) . "</b> — خطأ أثناء الحفظ في قاعدة البيانات";
                 $errors++;
             }
         }
@@ -339,11 +211,13 @@ if (isset($_POST["import_pdfs"])) {
 }
 
 
-// Textarea Queue Mode
+// ══ Textarea Queue Mode ═══════════════════════════════════════════════════════
 
 $textarea_message = "";
 
 if (isset($_POST["import_textarea"])) {
+    verifyCsrf();   // #1
+
     $content = trim($_POST["textarea_input"] ?? '');
     if (empty($content)) {
         $textarea_message = "<div class='alert alert-danger'>❌ الحقل فارغ!</div>";
@@ -372,13 +246,20 @@ if (isset($_POST["import_textarea"])) {
             if ($added > 0) {
                 $worker_path = __DIR__ . '/worker.php';
                 $php_exe     = PHP_BINARY ?: 'php';
-                @shell_exec("\"$php_exe\" \"$worker_path\" > nul 2>&1 &");
-              $textarea_message = "<div class='alert alert-info'>✅ تمت إضافة <b>$added</b> كتاب إلى الطابور!</div>";
-       } else {
-          $textarea_message = "<div class='alert alert-warning'>⚠️ لم يُضَف أي كتاب" . ($errors > 0 ? " ($errors تخطي)" : "") . "</div>";
- }
+
+               
+                @pclose(popen(
+                    "start /B \"\" " . escapeshellarg($php_exe) . " " . escapeshellarg($worker_path) . " > nul 2>&1",
+                    "r"
+                ));
+
+                $textarea_message = "<div class='alert alert-info'>✅ تمت إضافة <b>$added</b> كتاب إلى الطابور!</div>";
+            } else {
+                $textarea_message = "<div class='alert alert-warning'>⚠️ لم يُضَف أي كتاب" . ($errors > 0 ? " ($errors تخطي)" : "") . "</div>";
+            }
         } catch (Exception $e) {
-            $textarea_message = "<div class='alert alert-danger'>❌ خطأ: " . htmlspecialchars($e->getMessage()) . "</div>";
+            error_log('[bulk_upload textarea] ' . $e->getMessage());   // #3
+            $textarea_message = "<div class='alert alert-danger'>❌ عذرًا، حدث خطأ أثناء إضافة الطابور. يرجى المحاولة مجدداً.</div>";
         }
     }
 }
@@ -465,7 +346,7 @@ try {
         • استخدم عناوين <b>إنجليزية</b> — Google Books يُرجع وصفاً أغنى بالإنجليزي<br>
         • إذا كان الكتاب عربياً اكتب عنوانه <b>بالعربي والإنجليزي معاً</b> في CSV: <code>Crime and Punishment,url</code><br>
         • الكتب التي تجد لها وصفاً ستُصنَّف بدقة أعلى من تلك التي لا وصف لها<br>
-          </div>
+    </div>
 
     <!-- حالة الطابور -->
     <div class="card shadow-sm mb-4 p-3">
@@ -499,6 +380,7 @@ try {
                 </div>
             <?php endif; ?>
             <form method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                 <div class="upload-zone mb-3">
                     <i class="fas fa-file-csv fa-3x text-success mb-3"></i>
                     <h5>اختر ملف CSV</h5>
@@ -535,6 +417,7 @@ try {
                 </div>
             <?php endif; ?>
             <form method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                 <div class="upload-zone mb-3">
                     <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
                     <h5>اختر ملفات PDF</h5>
@@ -563,10 +446,11 @@ try {
                 <b>مثال:</b><br>
                 <code>Crime and Punishment | https://example.com/book.pdf</code><br>
                 <code>Think and Grow Rich | https://example.com/book2.pdf</code><br>
-                <small class="text-muted">💡 يُضاف إلى طابور ويُعالج في الخلفية بدون انتظار</small>
+                <small class="text-muted"> يُضاف إلى طابور ويُعالج في الخلفية بدون انتظار</small>
             </div>
             <?= $textarea_message ?>
             <form method="post">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
                 <textarea name="textarea_input" class="form-control mb-3" rows="8"
                     placeholder="Crime and Punishment | https://...&#10;Think and Grow Rich | https://...&#10;1984 | https://..."></textarea>
                 <button type="submit" name="import_textarea" class="btn btn-info btn-lg w-100 text-white">

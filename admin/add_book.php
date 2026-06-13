@@ -1,4 +1,5 @@
 <?php
+ 
 session_start();
 require_once '../includes/csrf.php';
 
@@ -8,6 +9,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 }
 
 require_once '../includes/db.php';
+
 
 $categories = $pdo->query("SELECT * FROM categories ORDER BY id")->fetchAll();
 $message = "";
@@ -46,14 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } elseif ($_FILES['pdf_file']['size'] > 50000000) {
                 $message = "<div class='alert alert-danger'>حجم ملف PDF يجب أن يكون أقل من 50MB.</div>";
             } else {
-                if (move_uploaded_file($_FILES['cover_image']['tmp_name'], $uploads_dir_cover . $cover_new_name) &&
-                    move_uploaded_file($_FILES['pdf_file']['tmp_name'], $uploads_dir_pdf . $pdf_new_name)) {
+                if (
+                    move_uploaded_file($_FILES['cover_image']['tmp_name'], $uploads_dir_cover . $cover_new_name) &&
+                    move_uploaded_file($_FILES['pdf_file']['tmp_name'], $uploads_dir_pdf . $pdf_new_name)
+                ) {
 
                     $stmt = $pdo->prepare("INSERT INTO books (title, author, description, category_id, cover_image, pdf_file, created_at, downloads, views)
                                            VALUES (?, ?, ?, ?, ?, ?, NOW(), 0, 0)");
                     $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name]);
 
-                    consume_csrf_token(); 
+                    consume_csrf_token();
 
                     $message = "<div class='alert alert-success'>تم إضافة الكتاب بنجاح!</div>";
                 } else {
@@ -63,9 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,10 +79,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background: #f8f9fa; }
-        .navbar { background: #667eea; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: #667eea;
+        }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
@@ -97,34 +110,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <form method="POST" enctype="multipart/form-data">
                             <?php echo csrf_input(); ?>
                             <div class="mb-3">
-          <label class="form-label">عنوان الكتاب *</label>
+                                <label class="form-label">عنوان الكتاب *</label>
                                 <input type="text" name="title" class="form-control"
-                                       value="<?php echo htmlspecialchars($_POST['title'] ?? ''); ?>" required>
-             </div>
-            <div class="mb-3">
+                                    value="<?php echo htmlspecialchars($_POST['title'] ?? ''); ?>" required>
+                            </div>
+                            <div class="mb-3">
                                 <label class="form-label">اسم المؤلف *</label>
-              <input type="text" name="author" class="form-control"
-                                       value="<?php echo htmlspecialchars($_POST['author'] ?? ''); ?>" required>
-           </div>
+                                <input type="text" name="author" class="form-control"
+                                    value="<?php echo htmlspecialchars($_POST['author'] ?? ''); ?>" required>
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">التصنيف *</label>
-                 <select name="category_id" class="form-select" required>
+                                <select name="category_id" class="form-select" required>
                                     <?php foreach ($categories as $cat): ?>
-                                 <option value="<?php echo $cat['id']; ?>"
-                            <?php echo (($_POST['category_id'] ?? 5) == $cat['id']) ? 'selected' : ''; ?>>
-                     <?php echo htmlspecialchars($cat['name']); ?>
+                                        <option value="<?php echo $cat['id']; ?>"
+                                            <?php echo (($_POST['category_id'] ?? 5) == $cat['id']) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($cat['name']); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="mb-3">
-                   <label class="form-label">وصف الكتاب</label>
- <textarea name="description" class="form-control" rows="3"><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
-            </div>
-       <div class="mb-3">
-                      <label class="form-label">صورة الغلاف (JPG, PNG, GIF) * — حد أقصى 5MB</label>
-                 <input type="file" name="cover_image" class="form-control" accept="image/*" required>
-             </div>
+                                <label class="form-label">وصف الكتاب</label>
+                                <textarea name="description" class="form-control" rows="3"><?php echo htmlspecialchars($_POST['description'] ?? ''); ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">صورة الغلاف (JPG, PNG, GIF) * — حد أقصى 5MB</label>
+                                <input type="file" name="cover_image" class="form-control" accept="image/*" required>
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">ملف PDF * — حد أقصى 50MB</label>
                                 <input type="file" name="pdf_file" class="form-control" accept=".pdf" required>
@@ -138,4 +151,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 </body>
+
 </html>

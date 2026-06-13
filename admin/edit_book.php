@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 }
 
 require_once '../includes/db.php';
-
+// جلب بيانات الكتاب الحالي
 $book_id = (int)($_GET['id'] ?? 0);
 if ($book_id <= 0) {
     header("Location: dashboard.php");
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = $pdo->prepare("UPDATE books SET title=?, author=?, description=?, category_id=?, cover_image=?, pdf_file=? WHERE id=?");
                 $stmt->execute([$title, $author, $description, $category_id, $cover_new_name, $pdf_new_name, $book_id]);
 
-                consume_csrf_token(); // ✅ نجاح — احذف التوكن
+                consume_csrf_token(); 
 
                 $message = "<div class='alert alert-success'>تم تعديل الكتاب بنجاح!</div>";
                 $book['title']       = $title;

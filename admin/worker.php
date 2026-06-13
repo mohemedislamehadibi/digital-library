@@ -20,20 +20,20 @@ function log_worker($message) {
 
 try {
     $processor = new BookProcessor($pdo);
-    log_worker("🚀 Worker بدأ التشغيل");
+    log_worker(" Worker بدأ التشغيل");
 
     
     $processed = $processor->processQueue(5);
 
     if ($processed > 0) {
-        log_worker("✅ تمت معالجة {$processed} كتاب");
+        log_worker(" تمت معالجة {$processed} كتاب");
     } else {
         log_worker("💤 لا توجد وظائف معلقة");
     }
 
     
-    $stats = $processor->getQueueStats();
-    log_worker("📊 الإحصائيات - الكلي: {$stats['total']}, المعلقة: {$stats['pending']}, المنجزة: {$stats['done']}, الفاشلة: {$stats['failed']}");
+$stats = $processor->getQueueStats();
+log_worker(" الإحصائيات - الكلي: {$stats['total']}, المعلقة: {$stats['pending']}, المنجزة: {$stats['done']}, الفاشلة: {$stats['failed']}");
 
 } catch (Exception $e) {
     log_worker("❌ خطأ: " . $e->getMessage());
