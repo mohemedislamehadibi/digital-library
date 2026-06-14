@@ -85,7 +85,7 @@ if (isset($_POST["import_csv"])) {
                           . ' ' . $description
                           . ' ' . $title;
 
-                $cat_id = $processor->autoClassify($cat_text);
+               $cat_id = $processor->smartClassify($title, $description);
 
                
                 $stmt = $pdo->prepare("INSERT INTO books (title,author,description,category_id,pdf_file,cover_image,created_at,downloads,views) VALUES (?,?,?,?,?,?,NOW(),0,0)");
