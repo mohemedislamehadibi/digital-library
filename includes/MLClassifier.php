@@ -11,7 +11,7 @@ class MLClassifier {
         $this->available  = $this->checkAvailable();
     }
 
-    
+    // التصنيف الرئيسي — يعيد مصفوفة تحتوي على category_id, category_name, confidence, source 
     public function predict(string $title, string $description = ''): array {
         if (!$this->available) {
             return $this->fallbackKeywords($title . ' ' . $description);
@@ -51,7 +51,7 @@ class MLClassifier {
         return $result;
     }
 
-    
+    // طريقة احتياطية تعتمد على الكلمات المفتاحية — تعيد category_id, category_name, confidence=0, score, source
     private function fallbackKeywords(string $text): array {
         $text = mb_strtolower($text, 'UTF-8');
         $cats = [
@@ -99,7 +99,7 @@ class MLClassifier {
 
     
     private function detectPython(): string {
-        // ★ المسارات الشائعة على Windows — يفحصها بالترتيب
+        //  المسارات الشائعة على Windows — يفحصها بالترتيب
         $windows_paths = [
             'C:\Users\ALEM\AppData\Local\Programs\Python\Python313\python.exe',
             'C:\Users\ALEM\AppData\Local\Programs\Python\Python312\python.exe',
